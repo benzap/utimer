@@ -17,6 +17,8 @@
                  [org.danielsz/system "0.4.0"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [rum "0.10.8"]
+                 [com.andrewmcveigh/cljs-time "0.5.0"]
+                 [orchestra "2017.07.04-1"]
                  [lambdaisland/garden-watcher "0.3.1"]]
 
   :plugins [[lein-cljsbuild "1.1.6"]

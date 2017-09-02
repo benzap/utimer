@@ -1,0 +1,28 @@
+#+TITLE: UTimer -- Not just a timer
+#+AUTHOR: Benjamin Zaporzan
+#+DATE: 2017-09-01
+#+EMAIL: benzaporzan@gmail.com
+#+LANGUAGE: en
+#+OPTIONS: H:2 num:t toc:t \n:nil ::t |:t ^:t f:t tex:t
+
+utimer is a web utility I wrote to replace the use of google's timer
+and/or alarm clock functionality. I'm also sick of trying to find an
+alternative that isn't straightforward, and to the point of being a
+timer.
+
+* Features
+
+  /none yet/
+
+* Programming Tasks [0%]
+** TODO General Features
+  - [ ] Backend timer functionality
+  - [ ] Simple Timer
+  - [ ] Better SVG-based timer animations
+  - [ ] Choice of sounds
+  - [ ] Fade-in sound timer
+  - [ ] Cascading tasks timer
+** TODO Alternative Features [0/3]
+    - [ ] Pomodoro Timer
+    - [ ] Interval Training Timer
+    - [ ] UTC-compliant alarm
