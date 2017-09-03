@@ -14,6 +14,7 @@
                  [compojure "1.6.0"]
                  [environ "1.1.0"]
                  [com.stuartsierra/component "0.3.2"]
+                 [com.rpl/specter "1.0.3"]
                  [org.danielsz/system "0.4.0"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [rum "0.10.8"]

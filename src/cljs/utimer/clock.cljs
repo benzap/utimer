@@ -8,7 +8,6 @@
 
 (enable-console-print!)
 
-(atom 0)
 
 (s/def ::*initialized? #(instance? cljs.core.Atom %))
 (s/def ::*timer #(instance? cljs.core.Atom %))
@@ -17,11 +16,11 @@
 (def default-tick-rate-ms 20)
 
 (defn new-clock
-  [timer &
+  [duration &
    {:keys [tick-rate]
     :or {tick-rate default-tick-rate-ms}}]
   {:*initialized? (atom false)
-   :*timer (atom timer)
+   :*timer (atom (timer/new-timer duration))
    :tick-rate tick-rate
    :event-channel (chan)
    :progress-channel (chan (sliding-buffer 10))})
@@ -47,13 +46,15 @@
 (defn- do-action-start!
   [{:keys [*timer event-channel] :as clock}]
   (swap! *timer timer/start)
-  (put! event-channel (event-tick)))
+  (put! event-channel (event-tick))
+  clock)
 
 
 (defn- do-action-stop!
   [{:keys [*timer event-channel] :as clock}]
   (swap! *timer timer/stop)
-  (put! event-channel (event-tick)))
+  (put! event-channel (event-tick))
+  clock)
 
 
 (defn- do-action-tick!
@@ -62,21 +63,24 @@
     (<! (timeout tick-rate))
     (swap! *timer timer/tick)
     (put! progress-channel @*timer)
-    (put! event-channel (event-tick))))
+    (put! event-channel (event-tick)))
+  clock)
 
 
 (defn- do-action-reset!
   [{:keys [*timer event-channel progress-channel] :as clock}]
   (swap! *timer timer/reset)
   (put! progress-channel @*timer)
-  (put! event-channel (event-tick)))
+  (put! event-channel (event-tick))
+  clock)
 
 
 (defn- do-action-quit!
   [{:keys [*timer event-channel progress-channel] :as clock}]
   (swap! *timer timer/stop)
   (close! event-channel)
-  (close! progress-channel))
+  (close! progress-channel)
+  clock)
 
 
 (defn event-loop

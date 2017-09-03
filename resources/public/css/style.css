@@ -68,3 +68,55 @@ h1 {
   flex-basis: 100px;
   flex-shrink: 1;
 }
+
+.ut-timer {
+  display: flex;
+  flex-direction: column;
+  height: 140px;
+  border-bottom: 2px solid white;
+  border-bottom-color: #f1ede4;
+}
+
+.ut-timer .flat-timer-progress {
+  position: absolute;
+  height: 140px;
+  z-index: -1;
+}
+
+.ut-timer .flat-timer-name {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ut-timer .flat-timer-container {
+  position: absolute;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140px;
+  text-align: center;
+}
+
+.ut-timer .flat-timer-container .flat-timer-input {
+  align-self: center;
+  height: 50%;
+  min-width: 400px;
+  width: 50%;
+}
+
+.ut-timer .flat-timer-container .flat-timer-input input {
+  width: 100%;
+  font-family: 'Droid Serif', serif;
+  height: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 3em;
+  background-color: hsla(62.857143, 22.105263%, 81.37255%, 0.5);
+  border-radius: 4px;
+  font-style: italic;
+  padding-left: 15px;
+}

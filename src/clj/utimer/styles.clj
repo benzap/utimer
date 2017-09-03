@@ -1,7 +1,7 @@
 (ns utimer.styles
   (:require [garden-watcher.def :refer [defstyles]]
             [garden.units :as units :refer [px em]]
-            [garden.color :as color :refer [rgb rgba hex->rgb]]
+            [garden.color :as color :refer [rgb rgba hex->rgb rgb->hex]]
             [garden.stylesheet :refer [at-media]]))
 
 (def color-red (rgb 229 172 158))
@@ -72,9 +72,53 @@
     {:flex-basis (px 100)
      :flex-shrink 1}]]
 
+  [:.ut-timer
+   {:display "flex"
+    :flex-direction "column"
+    :height (px 140)
+    ;;:background-color color-green
+    :border-bottom "2px solid white"
+    :border-bottom-color (color/lighten color-beige 20)}
 
+   [:.flat-timer-progress
+    {:position "absolute"
+     :height (px 140)
+     :z-index -1}]
 
+   [:.flat-timer-name
+    {:padding (px 10)
+     :font-size (px 24)
+     :font-weight "bold"
+     }]
 
-
+   [:.flat-timer-container
+    {:position "absolute"
+     :display "flex"
+     :align-content "center"
+     :align-items "center"
+     :justify-content "center"
+     :width "100%"
+     :height (px 140)
+     :text-align "center"}
+    
+    [:.flat-timer-input
+     {:align-self "center"
+      :height "50%"
+      :min-width (px 400)
+      :width "50%"}
+     
+     [:input 
+      {:width "100%"
+       :height "100%"
+       :border "none"
+       :outline "none"
+       :border-radius (px 4)
+       :padding-left (px 15)
+       :font-size (em 3)
+       :font-family font-serif
+       :font-style "italic"
+       :text-align "center"
+       :background-color (rgba 217, 218, 197 0.5)}]]]]
+  
 
   )

@@ -5,9 +5,12 @@
             ;; UTimer Modules
             [utimer.timer]
             [utimer.clock :as clock]
+            [utimer.layout :as layout]
 
             ;; UTimer Components
             [utimer.components.header :refer [c-header]]
+            [utimer.components.layout :refer [c-layout]]
+            [utimer.components.flat-timer :refer [c-flat-timer]]
             ))
 
 ;; For testing and development
@@ -19,9 +22,7 @@
 
 (defonce app-state
   (atom
-   {
-    :timers []
-    :layout [{:type :initial}]}))
+   {:layout [{:type :flat}]}))
 
 
 (rum/defc main < 
@@ -30,37 +31,10 @@
   (let [{:keys [layout]} (rum/react app-state)]
     [:div.main-container
      (c-header app-state)
-
+     (c-flat-timer app-state)
+     (c-flat-timer app-state)
      ]))
 
 
 (defn render []
   (rum/mount (main app-state) (. js/document (getElementById "app"))))
-
-
-(def t (utimer.timer/new-timer 1000))
-
-(->> t 
-    utimer.timer/start
-    utimer.timer/tick
-    utimer.timer/tick
-    utimer.timer/stop
-    (.log js/console))
-
-(def c (clock/new-clock (utimer.timer/new-timer 5000)))
-(def c2 (clock/new-clock (utimer.timer/new-timer 10000)))
-
-(comment
-  (clock/start! c)
-  (clock/start! c2)
-
-  (.setInterval js/window 
-                (fn []
-                  (.log js/console
-                        "clock 1:" (-> c :*timer deref clj->js))
-                  (.log js/console
-                        "clock 2:" (-> c2 :*timer deref clj->js)))
-                1000)
-
-  (.setTimeout js/window #(clock/quit! c) 5000)
-  )
