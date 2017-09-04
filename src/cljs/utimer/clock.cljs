@@ -13,7 +13,7 @@
 (s/def ::*timer #(instance? cljs.core.Atom %))
 (s/def ::channel #(instance? cljs.core.async.impl.channels.ManyToManyChannel %))
 
-(def default-tick-rate-ms 100)
+(def default-tick-rate-ms 20)
 
 (defn new-clock
   [duration &
@@ -41,6 +41,7 @@
 (defn event-tick [] {:event-action :tick})
 (defn event-reset [] {:event-action :reset})
 (defn event-quit [] {:event-action :quit})
+(defn event-change [duration] {:event-action :change :event-value duration})
 
 
 (defn- do-action-start!
@@ -84,6 +85,13 @@
   clock)
 
 
+(defn- do-action-change!
+  [{:keys [*timer event-channel] :as clock} duration]
+  (swap! *timer timer/change-duration duration)
+  (put! event-channel (event-tick))
+  clock)
+
+
 (defn event-loop
   [{:keys [*initialized? event-channel] :as clock}]
   (reset! *initialized? true)
@@ -97,6 +105,7 @@
             :tick (do-action-tick! clock)
             :reset (do-action-reset! clock)
             :quit (do-action-quit! clock)
+            :change (do-action-change! clock (:event-value event))
             nil)
           (recur))
         (do
@@ -126,6 +135,12 @@
           )))
 
 
+(defn timeleft-ms [clock]
+  (let [t (- (duration clock)
+             (progress clock))]
+    (if-not (< t 0) t 0)))
+
+
 (defn start!
   [{:keys [initialized? timer event-channel progress-channel]
     :as clock}]
@@ -151,3 +166,8 @@
   (put! event-channel (event-quit))
   clock)
 
+
+(defn change!
+  [{:keys [event-channel] :as clock} duration]
+  (put! event-channel (event-change duration))
+  clock)

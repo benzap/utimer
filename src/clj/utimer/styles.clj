@@ -110,7 +110,7 @@
    {:display "flex"
     :height "100%"
     :flex-direction "column"
-    :justify-content "center"
+    :justify-content "space-around"
     :align-items "center"
     :flex-grow 1}]
 
@@ -119,9 +119,35 @@
     :flex-direction "column"
     }]
 
+  [:.flat-timer-middle-container
+   {:display "flex"
+    :flex-direction "row"
+    :padding (px 5)
+    :padding-top (px 10)
+    :cursor "pointer"}
+   [:.material-icons
+    {:font-size (em 1.2)
+     :vertical-align "middle"
+     :padding-left (px 10)
+     :cursor "pointer"}
+    [:&:hover {:color (color/lighten color-beige 20)}]]]
+
   [:.flat-timer-label
-   {:padding (px 5)
-    :font-weight "bold"}]
+   {:font-weight "bold"}]
+
+  [:.flat-timer-edit-mode
+   {:display "flex"
+    :flex-direction "row"}
+   [:input
+    {:border "none"
+     :outline "none"
+     :font-size (em 1)
+     :font-family font-serif
+     :padding-left (px 10)
+     :padding-right (px 10)
+     :border-radius (px 4)
+     :background-color (color-yellow)
+     }]]
 
   [:.flat-timer-input
    {:display "flex"
@@ -148,9 +174,13 @@
      :text-align "center"
      :background-color (rgba 217, 218, 197 0.5)}]]
 
+  [:.flat-timer-display-container
+   {:font-size (em 2)}]
   
   [:.svg-timer-progress
-   {:transition "width 0.01s linear"}]
+   {
+    ;;:transition "width 0.01s linear"
+    }]
   
   [:.flat-timer-button
    {:padding (px 15)
@@ -162,5 +192,20 @@
    {}
    [:.material-icons
     {:font-size (px 80)}]]
+
+  [:.display-timer-year
+   {}]
+
+  [:.display-timer-day
+   {}]
+
+  [:.display-timer-hour
+   {:font-size (em 3)}]
+  
+  [:.display-timer-minute
+   {:font-size (em 3)}]
+
+  [:.display-timer-second
+   {:font-size (em 3.5)}]
 
   )

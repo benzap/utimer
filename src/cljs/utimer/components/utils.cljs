@@ -9,8 +9,7 @@
 
 
 (defn mixin-clock []
-  {:key-fn
-   (fn [element] (:id element))
+  {:key-fn (fn [element] (:id element))
 
    :will-mount
    (fn [state]

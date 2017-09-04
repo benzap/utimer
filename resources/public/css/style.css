@@ -111,7 +111,7 @@ h1 {
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-grow: 1;
 }
@@ -121,9 +121,43 @@ h1 {
   flex-direction: column;
 }
 
-.flat-timer-label {
+.flat-timer-middle-container {
+  display: flex;
+  flex-direction: row;
   padding: 5px;
+  padding-top: 10px;
+  cursor: pointer;
+}
+
+.flat-timer-middle-container .material-icons {
+  font-size: 1.2em;
+  vertical-align: middle;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.flat-timer-middle-container .material-icons:hover {
+  color: #f1ede4;
+}
+
+.flat-timer-label {
   font-weight: bold;
+}
+
+.flat-timer-edit-mode {
+  display: flex;
+  flex-direction: row;
+}
+
+.flat-timer-edit-mode input {
+  border: none;
+  outline: none;
+  font-size: 1em;
+  font-family: 'Droid Serif', serif;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  background-color: #d7d0aa;
 }
 
 .flat-timer-input {
@@ -154,8 +188,12 @@ h1 {
   padding-left: 15px;
 }
 
+.flat-timer-display-container {
+  font-size: 2em;
+}
+
 .svg-timer-progress {
-  transition: width 0.01s linear;
+
 }
 
 .flat-timer-button {
@@ -171,4 +209,24 @@ h1 {
 
 .flat-timer-button.play-pause .material-icons {
   font-size: 80px;
+}
+
+.display-timer-year {
+
+}
+
+.display-timer-day {
+
+}
+
+.display-timer-hour {
+  font-size: 3em;
+}
+
+.display-timer-minute {
+  font-size: 3em;
+}
+
+.display-timer-second {
+  font-size: 3.5em;
 }
