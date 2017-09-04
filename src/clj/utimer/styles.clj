@@ -29,6 +29,14 @@
 
   [:h1 {:text-decoration "underline"}]
 
+  [:.noselect
+   {:-webkit-touch-callout "none"
+    :-webkit-user-select "none"
+    :-khtml-user-select "none"
+    :-moz-user-select "none"
+    :-ms-user-select "none"
+    :user-select "none"}]
+
   [:.ut-header
    {:display "flex"
     :flex-direction "row"
@@ -76,49 +84,83 @@
    {:display "flex"
     :flex-direction "column"
     :height (px 140)
-    ;;:background-color color-green
     :border-bottom "2px solid white"
-    :border-bottom-color (color/lighten color-beige 20)}
+    :border-bottom-color (color/lighten color-beige 20)}]
 
-   [:.flat-timer-progress
-    {:position "absolute"
-     :height (px 140)
-     :z-index -1}]
+  ;;svg
+  [:.flat-timer-progress
+   {:position "absolute"
+    :height (px 140)
+    :z-index -1}]
 
-   [:.flat-timer-name
-    {:padding (px 10)
-     :font-size (px 24)
-     :font-weight "bold"
-     }]
-
-   [:.flat-timer-container
-    {:position "absolute"
-     :display "flex"
-     :align-content "center"
-     :align-items "center"
-     :justify-content "center"
-     :width "100%"
-     :height (px 140)
-     :text-align "center"}
-    
-    [:.flat-timer-input
-     {:align-self "center"
-      :height "50%"
-      :min-width (px 400)
-      :width "50%"}
-     
-     [:input 
-      {:width "100%"
-       :height "100%"
-       :border "none"
-       :outline "none"
-       :border-radius (px 4)
-       :padding-left (px 15)
-       :font-size (em 3)
-       :font-family font-serif
-       :font-style "italic"
-       :text-align "center"
-       :background-color (rgba 217, 218, 197 0.5)}]]]]
+  [:.flat-timer-container
+   {:position "absolute"
+    :display "flex"
+    :flex-direction "row"
+    :align-items "center"
+    :width "100%"
+    :height (px 140)
+    :text-align "center"}]
   
+  [:.flat-timer-left-pane
+   {:display "flex"
+    :flex-direction "column"}]
+
+  [:.flat-timer-middle-pane
+   {:display "flex"
+    :height "100%"
+    :flex-direction "column"
+    :justify-content "center"
+    :align-items "center"
+    :flex-grow 1}]
+
+  [:.flat-timer-right-pane
+   {:display "flex"
+    :flex-direction "column"
+    }]
+
+  [:.flat-timer-label
+   {:padding (px 5)
+    :font-weight "bold"}]
+
+  [:.flat-timer-input
+   {:display "flex"
+    :flex-direction "column"
+    :justify-content "center"
+    :align-items "center"
+    :min-width (px 250)
+    :width "100%"
+    :padding (px 10)
+    :padding-right (px 40)
+    :flex-grow 1
+    :align-self "center"}
+   [:input 
+    {:width "100%"
+     :height "50%"
+     :align-self "center"
+     :border "none"
+     :outline "none"
+     :border-radius (px 4)
+     :padding-left (px 15)
+     :font-size (em 3)
+     :font-family font-serif
+     :font-style "italic"
+     :text-align "center"
+     :background-color (rgba 217, 218, 197 0.5)}]]
+
+  
+  [:.svg-timer-progress
+   {:transition "width 0.01s linear"}]
+  
+  [:.flat-timer-button
+   {:padding (px 15)
+    :flex-basis (px 30)
+    :font-size (px 30)
+    :cursor "pointer"}]
+
+  [:.flat-timer-button.play-pause
+   {}
+   [:.material-icons
+    {:font-size (px 80)}]]
 
   )

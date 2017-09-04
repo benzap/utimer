@@ -31,8 +31,8 @@
   (let [{:keys [layout]} (rum/react app-state)]
     [:div.main-container
      (c-header app-state)
-     (c-flat-timer app-state)
-     (c-flat-timer app-state)
+     (c-flat-timer (layout/element :flat))
+     (c-flat-timer (layout/element :flat))
      ]))
 
 

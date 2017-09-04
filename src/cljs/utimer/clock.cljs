@@ -13,7 +13,7 @@
 (s/def ::*timer #(instance? cljs.core.Atom %))
 (s/def ::channel #(instance? cljs.core.async.impl.channels.ManyToManyChannel %))
 
-(def default-tick-rate-ms 20)
+(def default-tick-rate-ms 100)
 
 (defn new-clock
   [duration &
@@ -62,7 +62,8 @@
   (go
     (<! (timeout tick-rate))
     (swap! *timer timer/tick)
-    (put! progress-channel @*timer)
+    (when (-> @*timer :started?)
+      (put! progress-channel @*timer))
     (put! event-channel (event-tick)))
   clock)
 
@@ -103,6 +104,28 @@
       ))))
 
 
+(defn duration [{:keys [*timer] :as clock}]
+  (-> @*timer :duration))
+
+
+(defn progress [{:keys [*timer] :as clock}]
+  (-> @*timer :progress))
+
+
+(defn started? [{:keys [*timer] :as clock}]
+  (-> @*timer :started?))
+
+
+(defn percent-progress [clock]
+  (let [x (-> (progress clock)
+              (/ (duration clock))
+              (* 100))]
+    (cond (js/isNaN x) 0
+          (> x 100) 100
+          :else x
+          )))
+
+
 (defn start!
   [{:keys [initialized? timer event-channel progress-channel]
     :as clock}]
@@ -127,3 +150,4 @@
   [{:keys [event-channel] :as clock}]
   (put! event-channel (event-quit))
   clock)
+

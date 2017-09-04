@@ -6,7 +6,7 @@
 
 (rum/defcs c-header [app-state]
   [:div.ut-header
-   [:div.header-title "μTimer"]
+   [:div.header-title.noselect "μTimer"]
    [:div.header-add-timer
-    [:div.mat-button "+ Add Timer"]]
+    [:div.mat-button.noselect "+ Add Timer"]]
    [:div.header-end-spacer]])
