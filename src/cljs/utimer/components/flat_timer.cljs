@@ -23,10 +23,18 @@
     (display/display-timeleft time)))
 
 
-(defn display-class [clock]
+(defn display-duration [clock]
+  (let [time (parser/duration->time (clock/duration clock))]
+    (display/display-timeleft time)))
+
+
+(defn display-timeleft-class [clock]
   (let [time (parser/duration->time (clock/timeleft-ms clock))]
     (display/display-class time)))
 
+(defn display-duration-class [clock]
+  (let [time (parser/duration->time (clock/duration clock))]
+    (display/display-class time)))
 
 (defn mixin-flat-timer []
   {:did-update
@@ -65,7 +73,10 @@
       [:div.flat-timer-left-pane
        [:div.flat-timer-button.play-pause
         [:div.material-icons.noselect
-         {:on-click (fn [] (if (clock/started? clock) (clock/stop! clock) (clock/start! clock)))}
+         {:on-click (fn [] (cond 
+                             (clock/started? clock) (clock/stop! clock)
+                             (clock/finished? clock) (-> clock clock/restart! clock/start!)
+                             :else (clock/start! clock)))}
          (if (clock/started? clock) "pause" "play_arrow")]]]
       [:div.flat-timer-middle-pane
        [:div.flat-timer-middle-container.noselect
@@ -102,8 +113,12 @@
                                :text ""
                                ))
                         
-            :class (display-class clock)}
-           (display-timeleft clock)]
+            :class (if-not (clock/finished? clock)
+                     (display-timeleft-class clock)
+                     (display-duration-class clock))}
+           (if-not (clock/finished? clock)
+             (display-timeleft clock)
+             (display-duration clock))]
           [:input {:type "text" :value (:text @*time-text)
                    :on-change (fn [e] (swap! *time-text assoc :text (-> e .-target .-value)))
                    :on-key-down

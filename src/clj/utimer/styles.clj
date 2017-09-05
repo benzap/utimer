@@ -126,18 +126,21 @@
     :padding-top (px 10)
     :cursor "pointer"}
    [:.material-icons
-    {:font-size (em 1.2)
+    {:font-size (em 1.4)
      :vertical-align "middle"
      :padding-left (px 10)
+     :color (rgba 0 0 0 0.2)
      :cursor "pointer"}
     [:&:hover {:color (color/lighten color-beige 20)}]]]
 
   [:.flat-timer-label
-   {:font-weight "bold"}]
+   {:font-weight "bold"
+    :font-size (em 1.2)}]
 
   [:.no-label
    {:font-style "italic"
     :font-weight "lighter"
+    :font-family font-serif
     :color (rgba 0 0 0 0.3)}]
 
   [:.flat-timer-edit-mode
@@ -147,11 +150,13 @@
     {:border "none"
      :outline "none"
      :font-size (em 1)
-     :font-family font-serif
+     :font-family font-sans
      :padding-left (px 10)
      :padding-right (px 10)
      :border-radius (px 4)
-     :background-color (color-yellow)
+     :background-color color-yellow
+     :text-align "center"
+     :padding (px 3)
      }]]
 
   [:.flat-timer-input

@@ -130,9 +130,10 @@ h1 {
 }
 
 .flat-timer-middle-container .material-icons {
-  font-size: 1.2em;
+  font-size: 1.4em;
   vertical-align: middle;
   padding-left: 10px;
+  color: hsla(0, 0%, 0%, 0.2);
   cursor: pointer;
 }
 
@@ -142,11 +143,13 @@ h1 {
 
 .flat-timer-label {
   font-weight: bold;
+  font-size: 1.2em;
 }
 
 .no-label {
   font-style: italic;
   font-weight: lighter;
+  font-family: 'Droid Serif', serif;
   color: hsla(0, 0%, 0%, 0.3);
 }
 
@@ -156,14 +159,16 @@ h1 {
 }
 
 .flat-timer-edit-mode input {
+  font-family: 'Droid Sans', sans-serif;
   border: none;
+  padding: 3px;
+  text-align: center;
   outline: none;
   font-size: 1em;
-  font-family: 'Droid Serif', serif;
-  padding-left: 10px;
+  background-color: #d7d0aa;
   padding-right: 10px;
   border-radius: 4px;
-  background-color: #d7d0aa;
+  padding-left: 10px;
 }
 
 .flat-timer-input {
