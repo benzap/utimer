@@ -9,12 +9,12 @@
 
 
 (defn editable-label []
-  {:text "test"
+  {:text ""
    :edit-mode false})
 
 
 (defn editable-time []
-  {:text "5 minutes"
+  {:text ""
    :edit-mode false})
 
 
@@ -59,6 +59,7 @@
      [:svg {:class "flat-timer-progress" :width "100%" :height "100%"}
       [:rect {:class "flat-background" :width "100%" :height "100%" :fill "rgb(196,198,166)"}]
       [:rect {:class "svg-timer-progress" :width progress-s :height "100%" :fill "rgb(215,194,157)"}]
+      [:rect {:class "svg-timer-progress-tick" :x progress-s :width "1" :height "100%" :fill "rgba(0,0,0,0.1)"}]
       ]
      [:div.flat-timer-container
       [:div.flat-timer-left-pane
@@ -69,13 +70,15 @@
       [:div.flat-timer-middle-pane
        [:div.flat-timer-middle-container.noselect
         (if-not (:edit-mode @*label-text)
-          (list 
-           [:div.flat-timer-label
-            {:on-click (fn [] (swap! *label-text assoc :edit-mode true))}
-            (:text @*label-text)]
+          (let [text (:text @*label-text)
+                has-text? (> (count text) 0)]
+           [[:div.flat-timer-label
+            {:class (when-not has-text? "no-label")
+             :on-click (fn [] (swap! *label-text assoc :edit-mode true))}
+            (if-not has-text? "No Label" text)]
            [:div.material-icons.noselect
             {:on-click (fn [] (swap! *label-text assoc :edit-mode true))}
-            "edit"])
+            "edit"]])
 
           [:div.flat-timer-edit-mode.noselect
            [:input {:type "text" :value (:text @*label-text)
@@ -111,6 +114,7 @@
                          (do
                            (swap! *time-text assoc :edit-mode false)
                            (clock/change! clock (parser/parse->duration (:text @*time-text)))
+                           (clock/restart! clock)
                            )
                          "Escape"
                          (do

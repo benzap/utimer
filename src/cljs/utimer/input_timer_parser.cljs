@@ -11,11 +11,11 @@
 
 (def re-hour #"([0-9]+)\s*h|hr|hrs|hour|hours")
 
-(def re-minute #"([0-9]+)\s*m[^s]|min|minute|minutes")
+(def re-minute #"([0-9]+)\s*m|min|minute|minutes")
 
 (def re-second #"([0-9]+)\s*s|sec|secs|second|seconds")
 
-(def re-milli #"([0-9]+)\s*ms|msec|msecs|millisecond|milliseconds")
+#_(def re-milli #"([0-9]+)\s*msec|msecs|millisecond|milliseconds")
 
 
 (defn parse-time-value [re s]
@@ -33,7 +33,7 @@
    :hour (parse-time-value re-hour s)
    :minute (parse-time-value re-minute s)
    :second (parse-time-value re-second s)
-   :millisecond (parse-time-value re-milli s)
+   :millisecond 0;;(parse-time-value re-milli s)
    })
 
 ;;(parse "1000msec")

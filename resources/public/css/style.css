@@ -144,6 +144,12 @@ h1 {
   font-weight: bold;
 }
 
+.no-label {
+  font-style: italic;
+  font-weight: lighter;
+  color: hsla(0, 0%, 0%, 0.3);
+}
+
 .flat-timer-edit-mode {
   display: flex;
   flex-direction: row;
@@ -204,11 +210,36 @@ h1 {
 }
 
 .flat-timer-button.play-pause {
-
+  margin-left: 10px;
 }
 
 .flat-timer-button.play-pause .material-icons {
+  border-radius: 100%;
   font-size: 80px;
+}
+
+.flat-timer-button.play-pause .material-icons:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+.flat-timer-button.close {
+
+}
+
+.flat-timer-button.close .material-icons:hover {
+  color: #f1ede4;
+}
+
+.flat-timer-button.restart {
+
+}
+
+.flat-timer-button.restart .material-icons:hover {
+  color: #f1ede4;
+}
+
+.play-pause .material-icons:hover {
+  color: black;
 }
 
 .display-timer-year {

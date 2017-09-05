@@ -56,12 +56,12 @@
 
 (defn minute-display-timer
   [{:keys [minute second millisecond]}]
-  (str (fixed-two minute) ":" (fixed-two second) ":" (fixed-three millisecond)))
+  (str (fixed-two minute) ":" (fixed-two second)))
 
 
 (defn second-display-timer
   [{:keys [second millisecond]}]
-  (str second "." (fixed-three millisecond)))
+  (str second "." (fixed-three millisecond) "s"))
 
 
 (defn display-timeleft

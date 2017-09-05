@@ -135,6 +135,11 @@
   [:.flat-timer-label
    {:font-weight "bold"}]
 
+  [:.no-label
+   {:font-style "italic"
+    :font-weight "lighter"
+    :color (rgba 0 0 0 0.3)}]
+
   [:.flat-timer-edit-mode
    {:display "flex"
     :flex-direction "row"}
@@ -189,9 +194,29 @@
     :cursor "pointer"}]
 
   [:.flat-timer-button.play-pause
+   {:margin-left (px 10)}
+   [:.material-icons
+    {:border-radius "100%"
+     :font-size (px 80)}
+    [:&:hover 
+     {:background-color (rgba 0 0 0 0.1)}]]]
+
+  [:.flat-timer-button.close
    {}
    [:.material-icons
-    {:font-size (px 80)}]]
+    [:&:hover
+     {:color (color/lighten color-beige 20)}]]]
+
+  [:.flat-timer-button.restart
+   {}
+   [:.material-icons
+    [:&:hover
+     {:color (color/lighten color-beige 20)}]]]
+
+  [:.play-pause
+   [:.material-icons
+    [:&:hover
+     {:color "black"}]]]
 
   [:.display-timer-year
    {}]
