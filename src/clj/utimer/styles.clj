@@ -117,6 +117,7 @@
   [:.flat-timer-right-pane
    {:display "flex"
     :flex-direction "column"
+    :margin-right (px 10)
     }]
 
   [:.flat-timer-middle-container
@@ -237,5 +238,7 @@
 
   [:.display-timer-second
    {:font-size (em 3.5)}]
+
+  [:.audio-playback {:display "none"}]
 
   )

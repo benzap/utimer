@@ -119,6 +119,7 @@ h1 {
 .flat-timer-right-pane {
   display: flex;
   flex-direction: column;
+  margin-right: 10px;
 }
 
 .flat-timer-middle-container {
@@ -265,4 +266,8 @@ h1 {
 
 .display-timer-second {
   font-size: 3.5em;
+}
+
+.audio-playback {
+  display: none;
 }

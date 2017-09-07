@@ -17,6 +17,9 @@
   {:text ""
    :edit-mode false})
 
+(defn alarm []
+  {:triggered? false
+   :context nil})
 
 (defn display-timeleft [clock]
   (let [time (parser/duration->time (clock/timeleft-ms clock))]
@@ -151,5 +154,4 @@
          :title "Restart Timer"}
         [:div.material-icons.noselect "repeat"]]
        ]]
-
      ]))
