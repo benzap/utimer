@@ -84,6 +84,7 @@
    {:display "flex"
     :flex-direction "column"
     :height (px 140)
+    :box-sizing "initial"
     :border-bottom "2px solid white"
     :border-bottom-color (color/lighten color-beige 20)}]
 

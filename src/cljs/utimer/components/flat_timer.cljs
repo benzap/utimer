@@ -4,6 +4,7 @@
             [utimer.clock :as clock]
             [utimer.timer :as timer]
             [utimer.display :as display]
+            [utimer.alarm :as alarm]
             [utimer.input-timer-parser :as parser]
             [utimer.components.utils :as c-utils]))
 
@@ -17,9 +18,6 @@
   {:text ""
    :edit-mode false})
 
-(defn alarm []
-  {:triggered? false
-   :context nil})
 
 (defn display-timeleft [clock]
   (let [time (parser/duration->time (clock/timeleft-ms clock))]
@@ -54,19 +52,32 @@
        )
      state)})
 
+;; Alarm functions
+(defn get-alarm [state]
+  (c-utils/get-alarm state))
+
 
 (rum/defcs c-flat-timer <
+  {:key-fn (fn [element] (:id element))}
   rum/reactive
   (c-utils/mixin-clock)
+  (c-utils/mixin-alarm)
   (mixin-flat-timer)
   (rum/local (editable-label) ::*label-text)
   (rum/local (editable-time) ::*time-text)
   [state element]
   (let [clock (:clock state)
+        alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
         *label-text (::*label-text state)
         *time-text (::*time-text state)]
-    [:div.ut-timer.flat-timer
+    
+    ;; play alarm if timer is finished
+    (if (clock/finished? clock)
+      (alarm/play! alarm)
+      (alarm/stop! alarm))
+
+    [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
      [:svg {:class "flat-timer-progress" :width "100%" :height "100%"}
       [:rect {:class "flat-background" :width "100%" :height "100%" :fill "rgb(196,198,166)"}]
       [:rect {:class "svg-timer-progress" :width progress-s :height "100%" :fill "rgb(215,194,157)"}]
