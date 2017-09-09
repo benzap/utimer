@@ -33,9 +33,11 @@
   (let [time (parser/duration->time (clock/timeleft-ms clock))]
     (display/display-class time)))
 
+
 (defn display-duration-class [clock]
   (let [time (parser/duration->time (clock/duration clock))]
     (display/display-class time)))
+
 
 (defn mixin-flat-timer []
   {:did-update

@@ -33,12 +33,14 @@
    (fn [state]
      (let [[element] (:rum/args state)
            alarm (get-alarm state)]
-       (alarm/attach-class! alarm (str "timer-" (:id element))))
-     state)
+       (.log js/console (:audio alarm))
+       ;;(alarm/attach-class! alarm (str "timer-" (:id element)))
+       state))
 
    :will-unmount
    (fn [state]
-     (alarm/stop! (get-alarm state)))})
+     (alarm/stop! (get-alarm state))
+     (dissoc state :alarm))})
 
 
 (defn mixin-clock []

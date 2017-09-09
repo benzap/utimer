@@ -33,14 +33,16 @@
 
 
 (defn play! [{:keys [audio rhythm] :as alarm}]
-  (.start rhythm)
-  (.play audio)
+  ;;(.start rhythm)
+  (when (.-paused audio)
+    (.play audio))
   alarm)
 
 
 (defn stop! [{:keys [audio rhythm] :as alarm}]
-  (.stop rhythm)
-  (.pause audio)
+  ;;(.stop rhythm)
+  (when-not (.-paused audio)
+    (.pause audio))
   alarm)
 
 
