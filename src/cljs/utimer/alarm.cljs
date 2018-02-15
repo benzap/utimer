@@ -18,8 +18,10 @@
 
 (defn set-sound!
   [{:keys [audio] :as alarm} src]
-  (.setAttribute audio "src" src)
-  alarm)
+  (let [old-src (.getAttribute audio "src")]
+    (when (not= old-src src)
+      (.setAttribute audio "src" src))
+    alarm))
 
 
 (defn set-loop!

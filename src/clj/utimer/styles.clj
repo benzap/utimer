@@ -1,5 +1,6 @@
 (ns utimer.styles
   (:require [garden-watcher.def :refer [defstyles]]
+            [garden.def :refer [defkeyframes]]
             [garden.units :as units :refer [px em]]
             [garden.color :as color :refer [rgb rgba hex->rgb rgb->hex]]
             [garden.stylesheet :refer [at-media]]))
@@ -13,6 +14,14 @@
 (def font-sans "'Droid Sans', sans-serif")
 (def font-serif "'Droid Serif', serif")
 
+
+(defkeyframes anim-expand-vertical
+  ["0%"
+   {:opacity 0.0}]
+  ["%100"
+   {:opacity 1.0}])
+
+
 (defstyles style
   [:*
    {:box-sizing :border-box
@@ -20,6 +29,18 @@
     :margin 0
     :font-family font-sans
     :color (color/darken color-green 60)}]
+
+
+  ;; Animationsj
+
+  anim-expand-vertical
+  [:.anim-expand-vertical-normal
+   {:animation-name "anim-expand-vertical"
+    :animation-duration "0.5s"
+    :animation-fill-mode "both"}]
+
+
+
   [:body
    {:width "100%"}]
 
@@ -262,7 +283,41 @@
    {:padding-left (px 55)}]
 
   [:.flat-timer-extended-options
-   {:background-color color-orange
-    :border-top "1px solid rgba(0,0,0,0.1)"}]
+   {:display "flex"
+    :justify-content "center"
+    :flex-direction "column"
+    :background-color (color/darken color-orange 0)
+    :border-top "1px solid rgba(0,0,0,0.1)"
+    :box-shadow "inset 0px 3px 3px 0px rgba(0,0,0,0.7)"
+    :padding (px 10)
+    :overflow "hidden"}]
+
+  [:.alarm-sound-setting
+   {:display "flex"
+    :justify-content "center"
+    :align-items "center"
+    :padding (px 5)}]
+
+  [:select {:width (px 120)
+            :height (px 24)
+            :background-color (color/darken color-beige 10)
+            :outline "none"
+            :color (rgba 64 64 64 1.0)
+            :margin-left (px 5)
+            :margin-right (px 5)}]
+
+  ["input[type=checkbox]"
+   {:padding (px 5)
+    :margin-left (px 7)
+    :margin-right (px 7)}]
+
+  [:.mat-button
+   {:background-color (rgba 13 13 13 0.3)
+    :border "none"
+    :outline "none"
+    :padding (px 5)
+    :cursor "pointer"}
+   [:&:hover
+    {:color (rgba 240 240 240 0.5)}]]
 
   )

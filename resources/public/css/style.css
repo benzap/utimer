@@ -6,6 +6,24 @@
   color: #232317;
 }
 
+@keyframes anim-expand-vertical {
+
+0% {
+    opacity: 0.0;
+  }
+  
+%100 {
+    opacity: 1.0;
+  }
+
+}
+
+.anim-expand-vertical-normal {
+  animation-name: anim-expand-vertical;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
 body {
   width: 100%;
 }
@@ -296,6 +314,47 @@ h1 {
 }
 
 .flat-timer-extended-options {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   background-color: #d7c29d;
   border-top: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0px 3px 3px 0px rgba(0,0,0,0.7);
+  padding: 10px;
+  overflow: hidden;
+}
+
+.alarm-sound-setting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+select {
+  width: 120px;
+  height: 24px;
+  background-color: #bba881;
+  outline: none;
+  color: hsla(0, 0%, 25.09804%, 1.0);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+input[type=checkbox] {
+  padding: 5px;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.mat-button {
+  background-color: hsla(0, 0%, 5.098039%, 0.3);
+  border: none;
+  outline: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.mat-button:hover {
+  color: hsla(0, 0%, 94.117645%, 0.5);
 }
