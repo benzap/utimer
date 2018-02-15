@@ -272,3 +272,19 @@ h1 {
 .audio-playback {
   display: none;
 }
+
+.adder-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  background-color: #d7d0aa;
+  cursor: pointer;
+  color: hsla(0, 0%, 5.098039%, 0.5);
+}
+
+.adder-container:hover {
+  color: black;
+  background-color: #c7bd87;
+}

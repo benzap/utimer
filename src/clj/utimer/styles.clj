@@ -242,4 +242,17 @@
 
   [:.audio-playback {:display "none"}]
 
+  [:.adder-container
+   {:display "flex"
+    :width "100%"
+    :justify-content "center"
+    :align-items "center"
+    :height (px 20)
+    :background-color color-yellow
+    :cursor "pointer"
+    :color (rgba 13 13 13 0.5)}
+   [:&:hover
+    {:color "black"
+     :background-color (color/darken color-yellow 10)}]]
+
   )

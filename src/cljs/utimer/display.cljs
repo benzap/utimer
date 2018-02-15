@@ -10,7 +10,7 @@
 
 
 (defn auto-plural [text x]
-  (if (>1 x) (str text "s") text))
+  (if (or (= x 0) (>1 x)) (str text "s") text))
 
 
 (defn fixed-two [x]

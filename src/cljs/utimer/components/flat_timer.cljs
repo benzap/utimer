@@ -1,6 +1,7 @@
 (ns utimer.components.flat-timer
   (:require [goog.functions]
             [rum.core :as rum]
+            [cljs.core.async :refer [put!]]
             [utimer.clock :as clock]
             [utimer.timer :as timer]
             [utimer.display :as display]
@@ -60,14 +61,15 @@
 
 
 (rum/defcs c-flat-timer <
-  {:key-fn (fn [element] (:id element))}
+  {:key-fn (fn [element]
+             (:id element))}
   rum/reactive
   (c-utils/mixin-clock)
   (c-utils/mixin-alarm)
   (mixin-flat-timer)
   (rum/local (editable-label) ::*label-text)
   (rum/local (editable-time) ::*time-text)
-  [state element]
+  [state element remove-chan]
   (let [clock (:clock state)
         alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
@@ -159,7 +161,7 @@
         ]]
       [:div.flat-timer-right-pane
        [:div.flat-timer-button.close
-        {:on-click (fn [])
+        {:on-click (fn [] (put! remove-chan (:id element)))
          :title "Close Timer"}
         [:div.material-icons.noselect "close"]]
        [:div.flat-timer-button.restart

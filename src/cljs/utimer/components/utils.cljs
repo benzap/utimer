@@ -6,11 +6,12 @@
    [clojure.spec.alpha :as s]
    [utimer.alarm :as alarm]
    [utimer.clock :as clock]
+   [utimer.input-timer-parser :refer [parse->duration]]
    ))
 
 
 (defn get-alarm [state]
-  (-> state :alarm deref :context))
+  (some-> state :alarm deref :context))
 
 
 (defn force-render-alarm! [state]
@@ -33,20 +34,20 @@
    (fn [state]
      (let [[element] (:rum/args state)
            alarm (get-alarm state)]
-       (.log js/console (:audio alarm))
-       ;;(alarm/attach-class! alarm (str "timer-" (:id element)))
        state))
 
    :will-unmount
    (fn [state]
-     (alarm/stop! (get-alarm state))
+     (some-> (get-alarm state) alarm/stop!)
      (dissoc state :alarm))})
 
 
 (defn mixin-clock []
   {:will-mount
    (fn [state]
-     (let [clock (clock/new-clock 10000)
+     (let [element (-> state :rum/args first)
+           initial-value (parse->duration (get element :initial "5 Minutes"))
+           clock (clock/new-clock initial-value)
            component (:rum/react-component state)]
        (add-watch
         (:*timer clock) ::timer

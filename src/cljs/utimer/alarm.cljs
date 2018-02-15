@@ -11,12 +11,9 @@
 
 
 (defn new-alarm []
-  (let [audio (audio-object)
-        rhythm (js/Rythm.)]
-    (.connectExternalAudioElement rhythm audio)
+  (let [audio (audio-object)]
     (.setAttribute audio "src" default-alarm-sound)
-    {:audio audio
-     :rhythm rhythm}))
+    {:audio audio}))
 
 
 (defn set-sound!
@@ -32,23 +29,15 @@
     (.setAttribute audio "loop" "false")))
 
 
-(defn play! [{:keys [audio rhythm] :as alarm}]
-  ;;(.start rhythm)
+(defn play! [{:keys [audio] :as alarm}]
   (when (.-paused audio)
     (.play audio))
   alarm)
 
 
-(defn stop! [{:keys [audio rhythm] :as alarm}]
-  ;;(.stop rhythm)
+(defn stop! [{:keys [audio] :as alarm}]
   (when-not (.-paused audio)
     (.pause audio))
-  alarm)
-
-
-(defn attach-class! [{:keys [rhythm] :as alarm} class-name]
-  (.addRythm rhythm class-name "pulse" 500 100
-             #js {:min 1.0 :max 1.02})
   alarm)
 
 
@@ -56,7 +45,6 @@
   (def a (new-alarm))
   (set-sound! a "audio/analog_alarm.mp3")
   (play! a)
-  (attach-class! a "flat-timer")
   (.log js/console (clj->js a)))
 
 
