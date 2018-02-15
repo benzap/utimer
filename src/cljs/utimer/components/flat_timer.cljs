@@ -61,20 +61,22 @@
 
 
 (rum/defcs c-flat-timer <
-  {:key-fn (fn [element]
-             (:id element))}
+  {:key-fn (fn [element] (:id element))}
   rum/reactive
   (c-utils/mixin-clock)
   (c-utils/mixin-alarm)
   (mixin-flat-timer)
   (rum/local (editable-label) ::*label-text)
   (rum/local (editable-time) ::*time-text)
+  (rum/local {:open? false} ::*extended-options)
+
   [state element remove-chan]
   (let [clock (:clock state)
         alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
         *label-text (::*label-text state)
-        *time-text (::*time-text state)]
+        *time-text (::*time-text state)
+        *extended-options (::*extended-options state)]
     
     ;; play alarm if timer is finished
     (if (clock/finished? clock)
@@ -82,6 +84,7 @@
       (alarm/stop! alarm))
 
     [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
+     [:div.flat-timer-main
      [:svg {:class "flat-timer-progress" :width "100%" :height "100%"}
       [:rect {:class "flat-background" :width "100%" :height "100%" :fill "rgb(196,198,166)"}]
       [:rect {:class "svg-timer-progress" :width progress-s :height "100%" :fill "rgb(215,194,157)"}]
@@ -157,7 +160,10 @@
                        ))}])]
 
        [:div.flat-timer-middle-container.noselect
-        [:div.flat-timer-label "_"]
+        [:div.flat-timer-label
+         [:div.material-icons.noselect
+          {:on-click (fn [] (swap! *extended-options update :open? not))}
+          (if (:open? @*extended-options) "expand_less" "dehaze")]]
         ]]
       [:div.flat-timer-right-pane
        [:div.flat-timer-button.close
@@ -168,5 +174,9 @@
         {:on-click (fn [] (-> clock clock/stop! clock/restart!))
          :title "Restart Timer"}
         [:div.material-icons.noselect "repeat"]]
-       ]]
+       ]]]
+     (when (:open? @*extended-options)
+       [:div.flat-timer-extended-options
+        [:div "Here is an item"]
+        [:div "here is another item"]])
      ]))

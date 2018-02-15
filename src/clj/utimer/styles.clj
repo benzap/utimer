@@ -83,7 +83,7 @@
   [:.ut-timer
    {:display "flex"
     :flex-direction "column"
-    :height (px 140)
+;;    :height (px 140)
     :box-sizing "initial"
     :border-bottom "2px solid white"
     :border-bottom-color (color/lighten color-beige 20)}]
@@ -95,7 +95,7 @@
     :z-index -1}]
 
   [:.flat-timer-container
-   {:position "absolute"
+   {:position "relative"
     :display "flex"
     :flex-direction "row"
     :align-items "center"
@@ -126,11 +126,14 @@
     :flex-direction "row"
     :padding (px 5)
     :padding-top (px 10)
+    :justify-content "center"
+    :align-items "center"
     :cursor "pointer"}
    [:.material-icons
     {:font-size (em 1.4)
      :vertical-align "middle"
      :padding-left (px 10)
+     :padding-right (px 10)
      :color (rgba 0 0 0 0.2)
      :cursor "pointer"}
     [:&:hover {:color (color/lighten color-beige 20)}]]]
@@ -254,5 +257,12 @@
    [:&:hover
     {:color "black"
      :background-color (color/darken color-yellow 10)}]]
+
+  [:.adder-container>.material-icons
+   {:padding-left (px 55)}]
+
+  [:.flat-timer-extended-options
+   {:background-color color-orange
+    :border-top "1px solid rgba(0,0,0,0.1)"}]
 
   )

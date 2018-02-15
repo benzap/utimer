@@ -81,7 +81,6 @@ h1 {
 .ut-timer {
   display: flex;
   flex-direction: column;
-  height: 140px;
   box-sizing: initial;
   border-bottom: 2px solid white;
   border-bottom-color: #f1ede4;
@@ -94,7 +93,7 @@ h1 {
 }
 
 .flat-timer-container {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -128,6 +127,8 @@ h1 {
   flex-direction: row;
   padding: 5px;
   padding-top: 10px;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 
@@ -135,6 +136,7 @@ h1 {
   font-size: 1.4em;
   vertical-align: middle;
   padding-left: 10px;
+  padding-right: 10px;
   color: hsla(0, 0%, 0%, 0.2);
   cursor: pointer;
 }
@@ -287,4 +289,13 @@ h1 {
 .adder-container:hover {
   color: black;
   background-color: #c7bd87;
+}
+
+.adder-container>.material-icons {
+  padding-left: 55px;
+}
+
+.flat-timer-extended-options {
+  background-color: #d7c29d;
+  border-top: 1px solid rgba(0,0,0,0.1);
 }
