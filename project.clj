@@ -61,15 +61,15 @@
                            :main utimer.test-runner
                            :optimizations :none}}
 
-               {:id "min"
+               {:id "prod"
                 :source-paths ["src/cljs" "src/cljc"]
                 :jar true
                 :compiler {:main utimer.system
-                           :output-to "resources/public/js/compiled/utimer.js"
-                           :output-dir "target"
-                           :source-map-timestamp true
-                           :optimizations :advanced
-                           :pretty-print false}}]}
+                           :asset-path "js/compiled/dist_out"
+                           :output-to "dist/js/compiled/utimer.js"
+                           :output-dir "dist/js/compiled/out"
+                           :optimizations :whitespace
+                           :pretty-print true}}]}
 
   ;; When running figwheel from nREPL, figwheel will read this configuration
   ;; stanza, but it will read it without passing through leiningen's profile

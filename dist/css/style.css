@@ -1,0 +1,385 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Droid Sans', sans-serif;
+  color: #232317;
+}
+
+@keyframes anim-expand-vertical {
+
+0% {
+    background-color: black;
+    opacity: 0.5;
+  }
+  
+100% {
+    background-color: #d7c29d;
+    opacity: 1.0;
+  }
+
+}
+
+.anim-expand-vertical-normal {
+  animation-name: anim-expand-vertical;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes anim-color-reversal {
+
+0% {
+    background-color: #cf674e;
+  }
+  
+80% {
+    background-color: #9b9e68;
+  }
+  
+100% {
+    background-color: #cf674e;
+  }
+
+}
+
+.anim-color-reversal-normal {
+  animation-name: anim-color-reversal;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+body {
+  width: 100%;
+}
+
+html {
+  width: 100%;
+  background-color: #f1ede4;
+}
+
+h1 {
+  text-decoration: underline;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ut-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #bba881;
+  line-height: 100%;
+  height: 100%;
+}
+
+.ut-header .header-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  flex-basis: 100px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: center;
+  align-self: center;
+}
+
+.ut-header .header-add-timer {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.ut-header .mat-button {
+  min-width: 170px;
+  width: 80%;
+  max-width: 500px;
+  border: 1px solid white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.5em;
+  background-color: #a99160;
+  border-radius: 2px;
+}
+
+.ut-header .mat-button:hover {
+  background-color: #cdbfa2;
+  cursor: pointer;
+}
+
+.ut-header .header-end-spacer {
+  flex-basis: 100px;
+  flex-shrink: 1;
+}
+
+.ut-timer {
+  display: flex;
+  flex-direction: column;
+  box-sizing: initial;
+  border-bottom: 2px solid black;
+  border-bottom-color: #a99160;
+}
+
+.flat-timer-progress {
+  position: absolute;
+  height: 140px;
+  z-index: -1;
+}
+
+.flat-timer-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 140px;
+  text-align: center;
+}
+
+.flat-timer-left-pane {
+  display: flex;
+  flex-direction: column;
+}
+
+.flat-timer-middle-pane {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.flat-timer-right-pane {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.flat-timer-middle-container {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.flat-timer-middle-container .material-icons {
+  font-size: 1.4em;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: hsla(0, 0%, 0%, 0.2);
+  cursor: pointer;
+}
+
+.flat-timer-middle-container .material-icons:hover {
+  color: #f1ede4;
+}
+
+.flat-timer-label {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.no-label {
+  font-style: italic;
+  font-weight: lighter;
+  font-family: 'Droid Serif', serif;
+  color: hsla(0, 0%, 0%, 0.3);
+}
+
+.flat-timer-edit-mode {
+  display: flex;
+  flex-direction: row;
+}
+
+.flat-timer-edit-mode input {
+  font-family: 'Droid Sans', sans-serif;
+  border: none;
+  padding: 3px;
+  text-align: center;
+  outline: none;
+  font-size: 1em;
+  background-color: #d7d0aa;
+  padding-right: 10px;
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+.flat-timer-input {
+  min-width: 250px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  flex-direction: column;
+  align-self: center;
+  flex-grow: 1;
+  padding-right: 40px;
+  display: flex;
+}
+
+.flat-timer-input input {
+  width: 100%;
+  font-family: 'Droid Serif', serif;
+  height: 50%;
+  border: none;
+  text-align: center;
+  outline: none;
+  align-self: center;
+  font-size: 3em;
+  background-color: hsla(62.857143, 22.105263%, 81.37255%, 0.5);
+  border-radius: 4px;
+  font-style: italic;
+  padding-left: 15px;
+}
+
+.flat-timer-display-container {
+  font-size: 2em;
+}
+
+.svg-timer-progress {
+
+}
+
+.flat-timer-button {
+  padding: 15px;
+  flex-basis: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.flat-timer-button.play-pause {
+  margin-left: 10px;
+}
+
+.flat-timer-button.play-pause .material-icons {
+  border-radius: 100%;
+  font-size: 80px;
+}
+
+.flat-timer-button.play-pause .material-icons:hover {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+.flat-timer-button.close {
+
+}
+
+.flat-timer-button.close .material-icons:hover {
+  color: #f1ede4;
+}
+
+.flat-timer-button.restart {
+
+}
+
+.flat-timer-button.restart .material-icons:hover {
+  color: #f1ede4;
+}
+
+.play-pause .material-icons:hover {
+  color: black;
+}
+
+.display-timer-year {
+
+}
+
+.display-timer-day {
+
+}
+
+.display-timer-hour {
+  font-size: 3em;
+}
+
+.display-timer-minute {
+  font-size: 3em;
+}
+
+.display-timer-second {
+  font-size: 3.5em;
+}
+
+.audio-playback {
+  display: none;
+}
+
+.adder-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  background-color: #d7d0aa;
+  cursor: pointer;
+  color: hsla(0, 0%, 5.098039%, 0.5);
+}
+
+.adder-container:hover {
+  color: black;
+  background-color: #c7bd87;
+}
+
+.adder-container>.material-icons {
+  padding-left: 55px;
+}
+
+.flat-timer-extended-options {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #d7c29d;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0px 3px 3px 0px rgba(0,0,0,0.7);
+  padding: 10px;
+  overflow: hidden;
+}
+
+.alarm-sound-setting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+select {
+  width: 120px;
+  height: 24px;
+  background-color: #bba881;
+  outline: none;
+  color: hsla(0, 0%, 25.09804%, 1.0);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+input[type=checkbox] {
+  padding: 5px;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.mat-button {
+  background-color: hsla(0, 0%, 5.098039%, 0.3);
+  border: none;
+  outline: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.mat-button:hover {
+  color: hsla(0, 0%, 94.117645%, 0.5);
+}
