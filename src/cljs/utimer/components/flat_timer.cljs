@@ -55,6 +55,7 @@
        )
      state)})
 
+
 ;; Alarm functions
 (defn get-alarm [state]
   (c-utils/get-alarm state))
@@ -70,7 +71,8 @@
   (rum/local (editable-time) ::*time-text)
   (rum/local {:open? false
               :loop? false
-              :sound alarm/default-alarm-sound}
+              :sound alarm/default-alarm-sound
+              :test? false}
              ::*extended-options)
 
   [state element remove-chan]
@@ -209,7 +211,9 @@
           [:option {:value "audio/speaker_pulse.mp3"} "Speaker Pulse"]
           [:option {:value "audio/train_whistle.mp3"} "Train Whistle"]
           [:option {:value "audio/war_alarm.mp3"} "War Alarm"]]
-         [:button.mat-button "Test Alarm"]]
+         [:button.mat-button
+          {:on-click #(alarm/test-play! alarm)}
+          "Test Alarm"]]
         [:.alarm-sound-setting
          [:label "Alarm Repeat?"]
          [:input {:type "checkbox"

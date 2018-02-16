@@ -9,10 +9,12 @@
 @keyframes anim-expand-vertical {
 
 0% {
-    opacity: 0.0;
+    background-color: black;
+    opacity: 0.5;
   }
   
 100% {
+    background-color: #d7c29d;
     opacity: 1.0;
   }
 
@@ -123,8 +125,8 @@ h1 {
   display: flex;
   flex-direction: column;
   box-sizing: initial;
-  border-bottom: 2px solid white;
-  border-bottom-color: #f1ede4;
+  border-bottom: 2px solid black;
+  border-bottom-color: #a99160;
 }
 
 .flat-timer-progress {

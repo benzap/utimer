@@ -7,7 +7,19 @@
 (def default-alarm-sound "audio/analog_alarm.mp3")
 
 
-(defn audio-object [] (js/Audio.))
+(defn audio-object []
+  (let [audio (js/Audio.)]
+    (aset audio "preload" "auto")
+    audio))
+
+(def *tested-audio (atom (audio-object)))
+
+
+(defn test-play! [alarm]
+  (when-let [old-audio @*tested-audio]
+    (.pause old-audio))
+  (reset! *tested-audio (.cloneNode (:audio alarm) true))
+  (.play @*tested-audio))
 
 
 (defn new-alarm []
@@ -29,7 +41,8 @@
   [{:keys [audio] :as alarm} src]
   (let [old-src (.getAttribute audio "src")]
     (when (not= old-src src)
-      (.setAttribute audio "src" src))
+      (.setAttribute audio "src" src)
+      (.load audio))
     alarm))
 
 
@@ -51,9 +64,9 @@
 
 (defn stop! [{:keys [audio *options] :as alarm}]
   (when-not (.-paused audio)
-    (aset audio "currentTime" 0)
-    (.pause audio)
-    (swap! *options assoc :played-once? false))
+    (.pause audio))
+  (swap! *options assoc :played-once? false)
+  (aset audio "currentTime" 0)
   alarm)
 
 

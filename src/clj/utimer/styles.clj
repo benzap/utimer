@@ -17,9 +17,11 @@
 
 (defkeyframes anim-expand-vertical
   ["0%"
-   {:opacity 0.0}]
+   {:background-color "black"
+    :opacity 0.5}]
   ["100%"
-   {:opacity 1.0}])
+   {:background-color color-orange
+    :opacity 1.0}])
 
 
 (defkeyframes anim-color-reversal
@@ -122,10 +124,9 @@
   [:.ut-timer
    {:display "flex"
     :flex-direction "column"
-;;    :height (px 140)
     :box-sizing "initial"
-    :border-bottom "2px solid white"
-    :border-bottom-color (color/lighten color-beige 20)}]
+    :border-bottom "2px solid black"
+    :border-bottom-color (color/darken color-beige 20)}]
 
   ;;svg
   [:.flat-timer-progress

@@ -12,6 +12,7 @@
 
 
 (rum/defcs c-adder <
+  {:key-fn (fn [_] "unique-id-adder")}
   rum/reactive
   [state app-state]
   (let []
