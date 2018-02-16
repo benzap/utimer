@@ -10,16 +10,18 @@ and/or alarm clock functionality. I'm also sick of trying to find an
 alternative that isn't straightforward, and to the point of being a
 timer.
 
+/Currently in Alpha/
+
 * Features
 
   /none yet/
 
 * Programming Tasks [0%]
 ** TODO General Features
-  - [ ] Backend timer functionality
-  - [ ] Simple Timer
-  - [ ] Better SVG-based timer animations
-  - [ ] Choice of sounds
+  - [X] Backend timer functionality
+  - [X] Simple Timer
+  - [X] Better SVG-based timer animations
+  - [X] Choice of sounds
   - [ ] Fade-in sound timer
   - [ ] Cascading tasks timer
 ** TODO Alternative Features [0/3]
