@@ -18,8 +18,17 @@
 (defkeyframes anim-expand-vertical
   ["0%"
    {:opacity 0.0}]
-  ["%100"
+  ["100%"
    {:opacity 1.0}])
+
+
+(defkeyframes anim-color-reversal
+  ["0%"
+   {:background-color (color/darken color-red 20)}]
+  ["80%"
+   {:background-color (color/darken color-green 20)}]
+  ["100%"
+   {:background-color (color/darken color-red 20)}])
 
 
 (defstyles style
@@ -31,7 +40,9 @@
     :color (color/darken color-green 60)}]
 
 
-  ;; Animationsj
+  ;;
+  ;; Animations
+  ;;
 
   anim-expand-vertical
   [:.anim-expand-vertical-normal
@@ -39,6 +50,13 @@
     :animation-duration "0.5s"
     :animation-fill-mode "both"}]
 
+  anim-color-reversal
+  [:.anim-color-reversal-normal
+   {:animation-name "anim-color-reversal"
+    :animation-duration "1.0s"
+    :animation-iteration-count "infinite"
+    :animation-fill-mode "both"}]
+  
 
 
   [:body

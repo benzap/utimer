@@ -13,7 +13,16 @@
 (defn new-alarm []
   (let [audio (audio-object)]
     (.setAttribute audio "src" default-alarm-sound)
-    {:audio audio}))
+    {:audio audio
+     :*options (atom {:played-once? false})}))
+
+
+(defn is-playing? [{:keys [audio] :as alarm}]
+  (not (.-paused audio)))
+
+
+(defn is-looping? [{:keys [audio] :as alarm}]
+  (boolean (aget audio "loop")))
 
 
 (defn set-sound!
@@ -26,20 +35,25 @@
 
 (defn set-loop!
   [{:keys [audio] :as alarm} x]
-  (if (true? x)
-    (.setAttribute audio "loop" "true")
-    (.setAttribute audio "loop" "false")))
-
-
-(defn play! [{:keys [audio] :as alarm}]
-  (when (.-paused audio)
-    (.play audio))
+  (aset audio "loop" (boolean x))
   alarm)
 
 
-(defn stop! [{:keys [audio] :as alarm}]
+(defn play! [{:keys [audio *options] :as alarm}]
+  (when (and (.-paused audio)
+             (or (is-looping? alarm)
+                 (-> @*options :played-once? not)))
+    (aset audio "currentTime" 0)
+    (.play audio)
+    (swap! *options assoc :played-once? true))
+  alarm)
+
+
+(defn stop! [{:keys [audio *options] :as alarm}]
   (when-not (.-paused audio)
-    (.pause audio))
+    (aset audio "currentTime" 0)
+    (.pause audio)
+    (swap! *options assoc :played-once? false))
   alarm)
 
 

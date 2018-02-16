@@ -12,7 +12,7 @@
     opacity: 0.0;
   }
   
-%100 {
+100% {
     opacity: 1.0;
   }
 
@@ -21,6 +21,29 @@
 .anim-expand-vertical-normal {
   animation-name: anim-expand-vertical;
   animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes anim-color-reversal {
+
+0% {
+    background-color: #cf674e;
+  }
+  
+80% {
+    background-color: #9b9e68;
+  }
+  
+100% {
+    background-color: #cf674e;
+  }
+
+}
+
+.anim-color-reversal-normal {
+  animation-name: anim-color-reversal;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
   animation-fill-mode: both;
 }
 

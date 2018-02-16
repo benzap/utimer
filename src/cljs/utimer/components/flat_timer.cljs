@@ -69,7 +69,7 @@
   (rum/local (editable-label) ::*label-text)
   (rum/local (editable-time) ::*time-text)
   (rum/local {:open? false
-              :loop? true
+              :loop? false
               :sound alarm/default-alarm-sound}
              ::*extended-options)
 
@@ -92,8 +92,9 @@
       (alarm/play! alarm)
       (alarm/stop! alarm))
 
+
     [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
-     [:div.flat-timer-main
+     [:div.flat-timer-main {:class (when (clock/finished? clock) "anim-color-reversal-normal")}
      [:svg {:class "flat-timer-progress" :width "100%" :height "100%"}
       [:rect {:class "flat-background" :width "100%" :height "100%" :fill "rgb(196,198,166)"}]
       [:rect {:class "svg-timer-progress" :width progress-s :height "100%" :fill "rgb(215,194,157)"}]
@@ -215,7 +216,7 @@
                   :defaultChecked (:loop? @*extended-options)
                   :on-change
                   (fn [e]
-                    (let [val (-> e .-target .-value)]
-                      (swap! *extended-options assoc :loop? (= val "off"))))
+                    (let [val (-> e .-target .-checked)]
+                      (swap! *extended-options assoc :loop? val)))
                   }]]])
      ]))
