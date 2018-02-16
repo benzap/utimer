@@ -97,6 +97,7 @@
   (reset! *initialized? true)
   (go-loop []
     (let [event (<! event-channel)]
+      (println "Tick...")
       (if-let [action (:event-action event)]
         (do
           (case action

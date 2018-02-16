@@ -64,8 +64,8 @@
 (rum/defcs c-flat-timer <
   {:key-fn (fn [element] (:id element))}
   rum/reactive
-  (c-utils/mixin-clock)
   (c-utils/mixin-alarm)
+  (c-utils/mixin-clock)
   (mixin-flat-timer)
   (rum/local (editable-label) ::*label-text)
   (rum/local (editable-time) ::*time-text)

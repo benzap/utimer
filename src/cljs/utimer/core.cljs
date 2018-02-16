@@ -2,6 +2,8 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require
    [cljs.core.async :refer [chan sliding-buffer put! <! >! timeout close!]]
+   [utimer.ext-async] ;; core.async monkey-patch
+
    [rum.core :as rum]
    [orchestra-cljs.spec.test :as st]
    
@@ -17,6 +19,10 @@
    [utimer.components.flat-timer :refer [c-flat-timer]]
    [utimer.components.adder :refer [c-adder]]
    ))
+
+;; Core.async Monkey Patch (Not Required)
+#_(utimer.ext-async/attach-browser-async-harness!)
+
 
 ;; For testing and development
 (st/instrument)

@@ -27,8 +27,7 @@
        (add-watch
         alarm ::alarm
         (fn [_ _ _ _] (rum/request-render component)))
-       (assoc state
-              :alarm alarm)))
+       (assoc state :alarm alarm)))
 
    :did-mount
    (fn [state]
@@ -52,6 +51,7 @@
        (add-watch
         (:*timer clock) ::timer
         (fn [_ _ _ _] (rum/request-render component)))
+
        (assoc state
               :clock clock)))
 
@@ -69,8 +69,18 @@
              (when (<= time-left-ms 0) (clock/stop! clock))
              (recur))))
 
+       (when-let [*alarm (:alarm state)]
+         ;; Add in a interval for when the window loses focus
+         (swap! *alarm assoc :interval-id
+                (js/setInterval (fn [] (if (clock/finished? clock)
+                                         (alarm/play! (get-alarm state))
+                                         (alarm/stop! (get-alarm state)))) 200)))
+
        state))
 
    :will-unmount
    (fn [state]
-     (clock/quit! (:clock state)))})
+     (clock/quit! (:clock state))
+     (when-let [interval-id (some-> state :alarm deref :interval-id)]
+       (js/clearTimeout interval-id))
+     state)})
