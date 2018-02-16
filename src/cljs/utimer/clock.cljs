@@ -97,7 +97,6 @@
   (reset! *initialized? true)
   (go-loop []
     (let [event (<! event-channel)]
-      (println "Tick...")
       (if-let [action (:event-action event)]
         (do
           (case action
@@ -146,10 +145,15 @@
     (if-not (< t 0) t 0)))
 
 
+(defn init!
+  [{:keys [initialized?] :as clock}]
+  (when-not initialized? (event-loop clock)))
+
+
 (defn start!
   [{:keys [initialized? timer event-channel progress-channel]
     :as clock}]
-  (when-not initialized? (event-loop clock))
+  (init! clock)
   (put! event-channel (event-start))
   clock)
 

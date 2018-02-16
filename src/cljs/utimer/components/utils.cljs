@@ -60,7 +60,7 @@
      (let [clock (:clock state)
            progress-channel (:progress-channel clock)]
 
-       (clock/start! clock)
+       (clock/init! clock)
 
        (go-loop []
          (let [timer (<! progress-channel)

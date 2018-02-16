@@ -15,6 +15,14 @@
 (def font-serif "'Droid Serif', serif")
 
 
+(defkeyframes anim-fade-in
+  ["0%"
+   {:opacity 0}]
+
+  ["100%"
+   {:opacity 1.0}])
+
+
 (defkeyframes anim-expand-vertical
   ["0%"
    {:background-color "black"
@@ -46,10 +54,16 @@
   ;; Animations
   ;;
 
+  anim-fade-in
+  [:.anim-fade-in-normal
+   {:animation-name "anim-fade-in"
+    :animation-duration "1.5s"
+    :animation-fill-mode "both"}]
+
   anim-expand-vertical
   [:.anim-expand-vertical-normal
    {:animation-name "anim-expand-vertical"
-    :animation-duration "0.5s"
+    :animation-duration "0.2s"
     :animation-fill-mode "both"}]
 
   anim-color-reversal
@@ -145,13 +159,16 @@
   
   [:.flat-timer-left-pane
    {:display "flex"
-    :flex-direction "column"}]
+    :flex-direction "column"
+    :margin-left (px 10)
+    :margin-right (px 10)}]
 
   [:.flat-timer-middle-pane
    {:display "flex"
     :height "100%"
+    :padding (px 5)
     :flex-direction "column"
-    :justify-content "space-around"
+    :justify-content "center"
     :align-items "center"
     :flex-grow 1}]
 
@@ -159,13 +176,12 @@
    {:display "flex"
     :flex-direction "column"
     :margin-right (px 10)
+    :margin-left (px 20)
     }]
 
   [:.flat-timer-middle-container
    {:display "flex"
     :flex-direction "row"
-    :padding (px 5)
-    :padding-top (px 10)
     :justify-content "center"
     :align-items "center"
     :cursor "pointer"}
@@ -178,9 +194,17 @@
      :cursor "pointer"}
     [:&:hover {:color (color/lighten color-beige 20)}]]]
 
+  [:.material-icons
+   {:transition "color 0.1s"}]
+
   [:.flat-timer-label
    {:font-weight "bold"
-    :font-size (em 1.2)}]
+    :font-size (em 1.2)
+    :transition "color 0.1s"}
+   [:.material-icons
+    {:transition "color 0.1s"}]
+   [:&:hover
+    {:color (rgba 0 0 0 0.5)}]]
 
   [:.no-label
    {:font-style "italic"
@@ -247,24 +271,27 @@
    {:margin-left (px 10)}
    [:.material-icons
     {:border-radius "100%"
-     :font-size (px 80)}
+     :font-size (px 80)
+     :transition "background-color 0.2s"}
     [:&:hover 
      {:background-color (rgba 0 0 0 0.1)}]]]
 
   [:.flat-timer-button.close
    {}
    [:.material-icons
+    {:transition "color 0.1s"}
     [:&:hover
      {:color (color/lighten color-beige 20)}]]]
 
   [:.flat-timer-button.restart
-   {}
    [:.material-icons
+    {:transition "color 0.1s"}
     [:&:hover
      {:color (color/lighten color-beige 20)}]]]
 
   [:.play-pause
    [:.material-icons
+    {:transition "color 0.1s"}
     [:&:hover
      {:color "black"}]]]
 

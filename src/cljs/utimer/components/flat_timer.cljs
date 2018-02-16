@@ -108,9 +108,11 @@
         [:div.material-icons.noselect
          {:on-click (fn [] (cond 
                              (clock/started? clock) (clock/stop! clock)
-                             (clock/finished? clock) (-> clock clock/restart! clock/start!)
+                             (clock/finished? clock) (-> clock clock/restart!)
                              :else (clock/start! clock)))}
-         (if (clock/started? clock) "pause" "play_arrow")]]]
+         (cond (clock/started? clock) "pause"
+               (clock/finished? clock) "stop"
+               :else "play_arrow")]]]
       [:div.flat-timer-middle-pane
        [:div.flat-timer-middle-container.noselect
         (if-not (:edit-mode @*label-text)
@@ -174,7 +176,8 @@
        [:div.flat-timer-middle-container.noselect
         [:div.flat-timer-label
          [:div.material-icons.noselect
-          {:on-click (fn [] (swap! *extended-options update :open? not))}
+          {:on-click (fn [] (swap! *extended-options update :open? not))
+           :title (if (:open? @*extended-options) "Hide Options" "Show Options")}
           (if (:open? @*extended-options) "expand_less" "dehaze")]]
         ]]
       [:div.flat-timer-right-pane
