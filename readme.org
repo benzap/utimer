@@ -16,8 +16,8 @@ timer.
 
   /none yet/
 
-* Programming Tasks [0%]
-** TODO General Features
+* Programming Tasks
+** TODO General Features [4/6]
   - [X] Backend timer functionality
   - [X] Simple Timer
   - [X] Better SVG-based timer animations
@@ -28,3 +28,6 @@ timer.
     - [ ] Pomodoro Timer
     - [ ] Interval Training Timer
     - [ ] UTC-compliant alarm
+* Tidbits
+** Force dist folder to gh-pages branch
+   git push origin `git subtree split --prefix dist master`:gh-pages --force
