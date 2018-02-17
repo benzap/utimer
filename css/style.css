@@ -290,14 +290,19 @@ h1 {
 }
 
 .svg-timer-progress {
+  transition: width 0.01s;
+  transition-timing-function: ease-out;
+}
 
+.svg-timer-progress-tick {
+  transition: x 0.01s;
+  transition-timing-function: ease-out;
 }
 
 .flat-timer-button {
   padding: 15px;
   flex-basis: 30px;
   font-size: 30px;
-  cursor: pointer;
 }
 
 .flat-timer-button.play-pause {
@@ -320,6 +325,7 @@ h1 {
 
 .flat-timer-button.close .material-icons {
   transition: color 0.1s;
+  cursor: pointer;
 }
 
 .flat-timer-button.close .material-icons:hover {
@@ -328,14 +334,25 @@ h1 {
 
 .flat-timer-button.restart .material-icons {
   transition: color 0.1s;
+  cursor: pointer;
 }
 
 .flat-timer-button.restart .material-icons:hover {
   color: #f1ede4;
 }
 
+.flat-timer-button.restart .button-fade {
+  color: hsla(0, 0%, 0%, 0.3);
+  cursor: initial;
+}
+
+.flat-timer-button.restart .button-fade:hover {
+  color: hsla(0, 0%, 0%, 0.3);
+}
+
 .play-pause .material-icons {
   transition: color 0.1s;
+  cursor: pointer;
 }
 
 .play-pause .material-icons:hover {
@@ -367,14 +384,15 @@ h1 {
 }
 
 .adder-container {
-  display: flex;
-  width: 100%;
-  justify-content: center;
   align-items: center;
-  height: 20px;
-  background-color: #d7d0aa;
-  cursor: pointer;
   color: hsla(0, 0%, 5.098039%, 0.5);
+  transition: background-color 0.3s;
+  background-color: #d7d0aa;
+  width: 100%;
+  cursor: pointer;
+  justify-content: center;
+  display: flex;
+  height: 20px;
 }
 
 .adder-container:hover {

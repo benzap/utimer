@@ -63,10 +63,10 @@ var progress_s = [cljs.core.str.cljs$core$IFn$_invoke$arity$1(utimer.clock.perce
 var _STAR_label_text = new cljs.core.Keyword("utimer.components.flat-timer","*label-text","utimer.components.flat-timer/*label-text",-895599819).cljs$core$IFn$_invoke$arity$1(state);
 var _STAR_time_text = new cljs.core.Keyword("utimer.components.flat-timer","*time-text","utimer.components.flat-timer/*time-text",2111142535).cljs$core$IFn$_invoke$arity$1(state);
 var _STAR_extended_options = new cljs.core.Keyword("utimer.components.flat-timer","*extended-options","utimer.components.flat-timer/*extended-options",1837396324).cljs$core$IFn$_invoke$arity$1(state);
-var alarm_50983__$1 = utimer.components.flat_timer.get_alarm.call(null,state);
-utimer.alarm.set_loop_BANG_.call(null,alarm_50983__$1,new cljs.core.Keyword(null,"loop?","loop?",457687798).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)));
+var alarm_50981__$1 = utimer.components.flat_timer.get_alarm.call(null,state);
+utimer.alarm.set_loop_BANG_.call(null,alarm_50981__$1,new cljs.core.Keyword(null,"loop?","loop?",457687798).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)));
 
-utimer.alarm.set_sound_BANG_.call(null,alarm_50983__$1,new cljs.core.Keyword(null,"sound","sound",-2127407070).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)));
+utimer.alarm.set_sound_BANG_.call(null,alarm_50981__$1,new cljs.core.Keyword(null,"sound","sound",-2127407070).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)));
 
 if(cljs.core.truth_(utimer.clock.finished_QMARK_.call(null,clock))){
 utimer.alarm.play_BANG_.call(null,alarm);
@@ -134,9 +134,7 @@ switch (G__50978) {
 case "Enter":
 cljs.core.swap_BANG_.call(null,_STAR_time_text,cljs.core.assoc,new cljs.core.Keyword(null,"edit-mode","edit-mode",1940640993),false);
 
-utimer.clock.change_BANG_.call(null,clock,utimer.input_timer_parser.parse__GT_duration.call(null,new cljs.core.Keyword(null,"text","text",-1790561697).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_time_text))));
-
-return utimer.clock.restart_BANG_.call(null,clock);
+return utimer.clock.stop_BANG_.call(null,utimer.clock.restart_BANG_.call(null,utimer.clock.change_BANG_.call(null,clock,utimer.input_timer_parser.parse__GT_duration.call(null,new cljs.core.Keyword(null,"text","text",-1790561697).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_time_text))))));
 
 break;
 case "Escape":
@@ -162,7 +160,7 @@ return cljs.core.async.put_BANG_.call(null,remove_chan,new cljs.core.Keyword(nul
 return (function (){
 return utimer.clock.restart_BANG_.call(null,utimer.clock.stop_BANG_.call(null,clock));
 });})(clock,alarm,progress_s,_STAR_label_text,_STAR_time_text,_STAR_extended_options))
-, "title": "Restart Timer", "className": "flat-timer-button restart"}),React.createElement("div",({"className": "material-icons noselect"}),"repeat"))))),sablono.interpreter.interpret.call(null,(cljs.core.truth_(new cljs.core.Keyword(null,"open?","open?",1238443125).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.flat-timer-extended-options.anim-expand-vertical-normal","div.flat-timer-extended-options.anim-expand-vertical-normal",-1181375580),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,".alarm-sound-setting",".alarm-sound-setting",-1430141014),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"label","label",1718410804),"Alarm Sound"], null),new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"select","select",1147833503),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"value","value",305978217),new cljs.core.Keyword(null,"sound","sound",-2127407070).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)),new cljs.core.Keyword(null,"on-change","on-change",-732046149),((function (clock,alarm,progress_s,_STAR_label_text,_STAR_time_text,_STAR_extended_options){
+, "title": (cljs.core.truth_(utimer.clock.progressed_QMARK_.call(null,clock))?"Restart Timer":null), "className": "flat-timer-button restart"}),React.createElement("div",({"className": sablono.util.join_classes.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, ["material-icons","noselect",(cljs.core.truth_(utimer.clock.progressed_QMARK_.call(null,clock))?null:"button-fade")], null))}),"repeat"))))),sablono.interpreter.interpret.call(null,(cljs.core.truth_(new cljs.core.Keyword(null,"open?","open?",1238443125).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div.flat-timer-extended-options.anim-expand-vertical-normal","div.flat-timer-extended-options.anim-expand-vertical-normal",-1181375580),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,".alarm-sound-setting",".alarm-sound-setting",-1430141014),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"label","label",1718410804),"Alarm Sound"], null),new cljs.core.PersistentVector(null, 18, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"select","select",1147833503),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"value","value",305978217),new cljs.core.Keyword(null,"sound","sound",-2127407070).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_extended_options)),new cljs.core.Keyword(null,"on-change","on-change",-732046149),((function (clock,alarm,progress_s,_STAR_label_text,_STAR_time_text,_STAR_extended_options){
 return (function (e){
 return cljs.core.swap_BANG_.call(null,_STAR_extended_options,cljs.core.assoc,new cljs.core.Keyword(null,"sound","sound",-2127407070),e.target.value);
 });})(clock,alarm,progress_s,_STAR_label_text,_STAR_time_text,_STAR_extended_options))

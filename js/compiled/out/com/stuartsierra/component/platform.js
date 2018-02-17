@@ -16,14 +16,14 @@ return cljs.core.type__GT_str.call(null,cljs.core.type.call(null,x));
  */
 com.stuartsierra.component.platform.alter_ex_data = (function com$stuartsierra$component$platform$alter_ex_data(var_args){
 var args__36180__auto__ = [];
-var len__36173__auto___51061 = arguments.length;
-var i__36174__auto___51062 = (0);
+var len__36173__auto___51059 = arguments.length;
+var i__36174__auto___51060 = (0);
 while(true){
-if((i__36174__auto___51062 < len__36173__auto___51061)){
-args__36180__auto__.push((arguments[i__36174__auto___51062]));
+if((i__36174__auto___51060 < len__36173__auto___51059)){
+args__36180__auto__.push((arguments[i__36174__auto___51060]));
 
-var G__51063 = (i__36174__auto___51062 + (1));
-i__36174__auto___51062 = G__51063;
+var G__51061 = (i__36174__auto___51060 + (1));
+i__36174__auto___51060 = G__51061;
 continue;
 } else {
 }
@@ -55,11 +55,11 @@ return ex;
 
 com.stuartsierra.component.platform.alter_ex_data.cljs$lang$maxFixedArity = (2);
 
-com.stuartsierra.component.platform.alter_ex_data.cljs$lang$applyTo = (function (seq51058){
-var G__51059 = cljs.core.first.call(null,seq51058);
-var seq51058__$1 = cljs.core.next.call(null,seq51058);
-var G__51060 = cljs.core.first.call(null,seq51058__$1);
-var seq51058__$2 = cljs.core.next.call(null,seq51058__$1);
-return com.stuartsierra.component.platform.alter_ex_data.cljs$core$IFn$_invoke$arity$variadic(G__51059,G__51060,seq51058__$2);
+com.stuartsierra.component.platform.alter_ex_data.cljs$lang$applyTo = (function (seq51056){
+var G__51057 = cljs.core.first.call(null,seq51056);
+var seq51056__$1 = cljs.core.next.call(null,seq51056);
+var G__51058 = cljs.core.first.call(null,seq51056__$1);
+var seq51056__$2 = cljs.core.next.call(null,seq51056__$1);
+return com.stuartsierra.component.platform.alter_ex_data.cljs$core$IFn$_invoke$arity$variadic(G__51057,G__51058,seq51056__$2);
 });
 
