@@ -163,9 +163,10 @@
                          "Enter"
                          (do
                            (swap! *time-text assoc :edit-mode false)
-                           (clock/change! clock (parser/parse->duration (:text @*time-text)))
-                           (clock/restart! clock)
-                           )
+                           (-> clock
+                               (clock/change! (parser/parse->duration (:text @*time-text)))
+                               clock/restart!
+                               clock/stop!))
                          "Escape"
                          (do
                            (swap! *time-text assoc :edit-mode false)
@@ -187,8 +188,10 @@
         [:div.material-icons.noselect "close"]]
        [:div.flat-timer-button.restart
         {:on-click (fn [] (-> clock clock/stop! clock/restart!))
-         :title "Restart Timer"}
-        [:div.material-icons.noselect "repeat"]]
+         :title (when (clock/progressed? clock) "Restart Timer")}
+        [:div.material-icons.noselect
+         {:class (when-not (clock/progressed? clock) "button-fade")}
+         "repeat"]]
        ]]]
      (when (:open? @*extended-options)
        [:div.flat-timer-extended-options.anim-expand-vertical-normal

@@ -262,15 +262,17 @@
    {:font-size (em 2)}]
   
   [:.svg-timer-progress
-   {
-    ;;:transition "width 0.01s linear"
-    }]
+   {:transition "width 0.01s"
+    :transition-timing-function "ease-out"}]
+
+  [:.svg-timer-progress-tick
+   {:transition "x 0.01s"
+    :transition-timing-function "ease-out"}]
   
   [:.flat-timer-button
    {:padding (px 15)
     :flex-basis (px 30)
-    :font-size (px 30)
-    :cursor "pointer"}]
+    :font-size (px 30)}]
 
   [:.flat-timer-button.play-pause
    {:margin-left (px 10)}
@@ -284,19 +286,27 @@
   [:.flat-timer-button.close
    {}
    [:.material-icons
-    {:transition "color 0.1s"}
+    {:transition "color 0.1s"
+     :cursor "pointer"}
     [:&:hover
      {:color (color/lighten color-beige 20)}]]]
 
   [:.flat-timer-button.restart
    [:.material-icons
-    {:transition "color 0.1s"}
+    {:transition "color 0.1s"
+     :cursor "pointer"}
     [:&:hover
-     {:color (color/lighten color-beige 20)}]]]
+     {:color (color/lighten color-beige 20)}]]
+   [:.button-fade
+    {:color (rgba 0 0 0 0.3)
+     :cursor "initial"}
+    [:&:hover
+     {:color (rgba 0 0 0 0.3)}]]]
 
   [:.play-pause
    [:.material-icons
-    {:transition "color 0.1s"}
+    {:transition "color 0.1s"
+     :cursor "pointer"}
     [:&:hover
      {:color "black"}]]]
 
@@ -325,7 +335,8 @@
     :height (px 20)
     :background-color color-yellow
     :cursor "pointer"
-    :color (rgba 13 13 13 0.5)}
+    :color (rgba 13 13 13 0.5)
+    :transition "background-color 0.3s"}
    [:&:hover
     {:color "black"
      :background-color (color/darken color-yellow 10)}]]

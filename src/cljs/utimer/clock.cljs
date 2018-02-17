@@ -125,8 +125,14 @@
   (-> @*timer :started?))
 
 
+(defn progressed? [clock]
+  (> (progress clock) 0))
+
+
 (defn finished? [{:keys [*timer] :as clock}]
-  (>= (progress clock) (duration clock)))
+  (and 
+   (>= (progress clock) (duration clock))
+   (> (duration clock) 0)))
 
 
 (defn percent-progress [clock]
