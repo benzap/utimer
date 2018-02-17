@@ -173,7 +173,7 @@
                          nil)
                        ))}])]
 
-       [:div.flat-timer-middle-container.noselect
+       [:div.flat-timer-middle-container.noselect.extended-options-button
         [:div.flat-timer-label
          [:div.material-icons.noselect
           {:on-click (fn [] (swap! *extended-options update :open? not))

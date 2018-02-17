@@ -64,6 +64,11 @@
   (str second "." (fixed-three millisecond) "s"))
 
 
+(defn invalid-display-timer
+  []
+  (str "Err"))
+
+
 (defn display-timeleft
   [{:keys [year day hour minute second millisecond] :as time}]
   (cond
@@ -72,7 +77,8 @@
     (>0 hour) (hour-display-timer time)
     (>0 minute) (minute-display-timer time)
     (>0 second) (second-display-timer time)
-    :else (second-display-timer time)))
+    (>0 millisecond) (second-display-timer time)
+    :else (invalid-display-timer)))
 
 
 (defn display-class

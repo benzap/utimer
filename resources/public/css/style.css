@@ -69,6 +69,7 @@
 
 body {
   width: 100%;
+  min-width: 500px;
 }
 
 html {
@@ -117,7 +118,7 @@ h1 {
 }
 
 .ut-header .mat-button {
-  min-width: 170px;
+  min-width: 120px;
   width: 80%;
   max-width: 500px;
   border: 1px solid white;
@@ -208,6 +209,10 @@ h1 {
   color: #f1ede4;
 }
 
+.extended-options-button {
+  margin-right: 35px;
+}
+
 .material-icons {
   transition: color 0.1s;
 }
@@ -252,7 +257,7 @@ h1 {
 }
 
 .flat-timer-input {
-  min-width: 250px;
+  min-width: 150px;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -260,6 +265,7 @@ h1 {
   flex-direction: column;
   align-self: center;
   flex-grow: 1;
+  overflow: hidden;
   padding-right: 40px;
   display: flex;
 }
@@ -267,12 +273,12 @@ h1 {
 .flat-timer-input input {
   width: 100%;
   font-family: 'Droid Serif', serif;
-  height: 50%;
+  height: 100%;
   border: none;
   text-align: center;
   outline: none;
   align-self: center;
-  font-size: 3em;
+  font-size: 2em;
   background-color: hsla(62.857143, 22.105263%, 81.37255%, 0.5);
   border-radius: 4px;
   font-style: italic;
@@ -377,7 +383,7 @@ h1 {
 }
 
 .adder-container>.material-icons {
-  padding-left: 55px;
+  padding-left: 20px;
 }
 
 .flat-timer-extended-options {

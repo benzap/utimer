@@ -76,7 +76,8 @@
 
 
   [:body
-   {:width "100%"}]
+   {:width "100%"
+    :min-width (px 500)}]
 
   [:html
    {:width "100%"
@@ -124,7 +125,7 @@
      :background-color (color/darken color-beige 20)
      :padding (px 10)
      :max-width (px 500)
-     :min-width (px 170)
+     :min-width (px 120)
      :width "80%"
      :text-align "center"}
     [:&:hover
@@ -194,6 +195,9 @@
      :cursor "pointer"}
     [:&:hover {:color (color/lighten color-beige 20)}]]]
 
+  [:.extended-options-button
+   {:margin-right (px 35)}]
+
   [:.material-icons
    {:transition "color 0.1s"}]
 
@@ -233,21 +237,22 @@
     :flex-direction "column"
     :justify-content "center"
     :align-items "center"
-    :min-width (px 250)
+    :min-width (px 150)
     :width "100%"
     :padding (px 10)
     :padding-right (px 40)
     :flex-grow 1
+    :overflow "hidden"
     :align-self "center"}
    [:input 
     {:width "100%"
-     :height "50%"
+     :height "100%"
      :align-self "center"
      :border "none"
      :outline "none"
      :border-radius (px 4)
      :padding-left (px 15)
-     :font-size (em 3)
+     :font-size (em 2)
      :font-family font-serif
      :font-style "italic"
      :text-align "center"
@@ -326,7 +331,7 @@
      :background-color (color/darken color-yellow 10)}]]
 
   [:.adder-container>.material-icons
-   {:padding-left (px 55)}]
+   {:padding-left (px 20)}]
 
   [:.flat-timer-extended-options
    {:display "flex"
