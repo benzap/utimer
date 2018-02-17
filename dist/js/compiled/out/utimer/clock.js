@@ -652,12 +652,15 @@ var clock = map__50830__$1;
 var _STAR_timer = cljs.core.get.call(null,map__50830__$1,new cljs.core.Keyword(null,"*timer","*timer",-637700106));
 return new cljs.core.Keyword(null,"started?","started?",-1301062863).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,_STAR_timer));
 });
+utimer.clock.progressed_QMARK_ = (function utimer$clock$progressed_QMARK_(clock){
+return (utimer.clock.progress.call(null,clock) > (0));
+});
 utimer.clock.finished_QMARK_ = (function utimer$clock$finished_QMARK_(p__50832){
 var map__50833 = p__50832;
 var map__50833__$1 = ((((!((map__50833 == null)))?((((map__50833.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__50833.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50833):map__50833);
 var clock = map__50833__$1;
 var _STAR_timer = cljs.core.get.call(null,map__50833__$1,new cljs.core.Keyword(null,"*timer","*timer",-637700106));
-return (utimer.clock.progress.call(null,clock) >= utimer.clock.duration.call(null,clock));
+return ((utimer.clock.progress.call(null,clock) >= utimer.clock.duration.call(null,clock))) && ((utimer.clock.duration.call(null,clock) > (0)));
 });
 utimer.clock.percent_progress = (function utimer$clock$percent_progress(clock){
 var x = ((utimer.clock.progress.call(null,clock) / utimer.clock.duration.call(null,clock)) * (100));
