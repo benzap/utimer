@@ -350,17 +350,33 @@
 
   [:.flat-timer-extended-options
    {:display "flex"
+    :flex-grow 0
+    :flex-shrink 0
     :justify-content "center"
     :flex-direction "column"
     :background-color (color/darken color-orange 0)
     :border-top "1px solid rgba(0,0,0,0.1)"
     :box-shadow "inset 0px 3px 3px 0px rgba(0,0,0,0.7)"
     :padding (px 10)
-    :overflow "hidden"}]
+    :overflow "hidden"}
+   [:hr
+    {:border "1px solid grey"
+     :border-color (rgba 13 13 13 0.3)
+     :border-radius (px 2)
+     :margin-top (px 10)
+     :margin-bottom (px 10)}]]
+  
+  [:.flat-timer-extended-options-container
+   {:margin "auto auto"}]
 
   [:.alarm-sound-setting
    {:display "flex"
-    :justify-content "center"
+    ;;:justify-content "center"
+    :align-items "center"
+    :padding (px 5)}]
+
+  [:.programmable-setting
+   {:display "flex"
     :align-items "center"
     :padding (px 5)}]
 
@@ -376,6 +392,17 @@
    {:padding (px 5)
     :margin-left (px 7)
     :margin-right (px 7)}]
+
+  ["input[type=text]"
+   {:width (px 120)
+    :height (px 24)
+    :background-color (color/darken color-beige 10)
+    :outline "none"
+    :color (rgba 64 64 64 1.0)
+    :margin-left (px 5)
+    :margin-right (px 5)
+    :border "1px solid grey"
+    :padding (px 5)}]
 
   [:.mat-button
    {:background-color (rgba 13 13 13 0.3)

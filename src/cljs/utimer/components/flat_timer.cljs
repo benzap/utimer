@@ -265,38 +265,50 @@
        ]]]
      (when (:open? @*extended-options)
        [:div.flat-timer-extended-options.anim-expand-vertical-normal
-        [:.alarm-sound-setting
-         [:label "Alarm Sound"]
-         [:select {:value (:sound @*extended-options)
+        [:div.flat-timer-extended-options-container
+         [:h2 "Alarm Settings"]
+         [:.alarm-sound-setting
+          [:label "Alarm Sound"]
+          [:select {:value (:sound @*extended-options)
+                    :on-change
+                    (fn [e]
+                      (swap! *extended-options assoc :sound (-> e .-target .-value)))}
+           [:option {:value nil} "None"]
+           [:option {:value "audio/analog_alarm.mp3"} "Analog Alarm"]
+           [:option {:value "audio/chinese_gong.mp3"} "Chinese Gong"]
+           [:option {:value "audio/dixie_horn.mp3"} "Dixie Horn"]
+           [:option {:value "audio/fog_horn.mp3"} "Fog Horn"]
+           [:option {:value "audio/front_desk_bell.mp3"} "Front Desk Bell"]
+           [:option {:value "audio/metal_gong.mp3"} "Metal Gong"]
+           [:option {:value "audio/missle_alert.mp3"} "Missle Alert"]
+           [:option {:value "audio/news_intro.mp3"} "News Intro"]
+           [:option {:value "audio/police_whistle.mp3"} "Police Whistle"]
+           [:option {:value "audio/railroad_crossing.mp3"} "Railroad Crossing"]
+           [:option {:value "audio/school_bell.mp3"} "School Bell"]
+           [:option {:value "audio/shotgun.mp3"} "Shotgun"]
+           [:option {:value "audio/speaker_pulse.mp3"} "Speaker Pulse"]
+           [:option {:value "audio/train_whistle.mp3"} "Train Whistle"]
+           [:option {:value "audio/war_alarm.mp3"} "War Alarm"]]
+          [:button.mat-button
+           {:on-click #(alarm/test-play! alarm)}
+           "Test Alarm"]]
+         [:.alarm-sound-setting
+          [:label "Alarm Repeat?"]
+          [:input {:type "checkbox"
+                   :defaultChecked (:loop? @*extended-options)
                    :on-change
                    (fn [e]
-                     (swap! *extended-options assoc :sound (-> e .-target .-value)))}
-          [:option {:value nil} "None"]
-          [:option {:value "audio/analog_alarm.mp3"} "Analog Alarm"]
-          [:option {:value "audio/chinese_gong.mp3"} "Chinese Gong"]
-          [:option {:value "audio/dixie_horn.mp3"} "Dixie Horn"]
-          [:option {:value "audio/fog_horn.mp3"} "Fog Horn"]
-          [:option {:value "audio/front_desk_bell.mp3"} "Front Desk Bell"]
-          [:option {:value "audio/metal_gong.mp3"} "Metal Gong"]
-          [:option {:value "audio/missle_alert.mp3"} "Missle Alert"]
-          [:option {:value "audio/news_intro.mp3"} "News Intro"]
-          [:option {:value "audio/police_whistle.mp3"} "Police Whistle"]
-          [:option {:value "audio/railroad_crossing.mp3"} "Railroad Crossing"]
-          [:option {:value "audio/school_bell.mp3"} "School Bell"]
-          [:option {:value "audio/shotgun.mp3"} "Shotgun"]
-          [:option {:value "audio/speaker_pulse.mp3"} "Speaker Pulse"]
-          [:option {:value "audio/train_whistle.mp3"} "Train Whistle"]
-          [:option {:value "audio/war_alarm.mp3"} "War Alarm"]]
-         [:button.mat-button
-          {:on-click #(alarm/test-play! alarm)}
-          "Test Alarm"]]
-        [:.alarm-sound-setting
-         [:label "Alarm Repeat?"]
-         [:input {:type "checkbox"
-                  :defaultChecked (:loop? @*extended-options)
-                  :on-change
-                  (fn [e]
-                    (let [val (-> e .-target .-checked)]
-                      (swap! *extended-options assoc :loop? val)))
-                  }]]])
+                     (let [val (-> e .-target .-checked)]
+                       (swap! *extended-options assoc :loop? val)))
+                   }]]
+         [:hr]
+         [:h2 "Programmable Settings"]
+         [:.programmable-setting
+          
+          [:label "On Finish - Start Timer: "]
+          [:input {:placeholder "Label Name" :type "text"}]
+          [:button.mat-button
+           "Test Label"]
+          ]
+         ]])
      ]))
