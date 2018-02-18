@@ -1,7 +1,7 @@
 (ns utimer.core
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require
-   [cljs.core.async :refer [chan sliding-buffer put! <! >! timeout close!]]
+   [cljs.core.async :refer [chan sliding-buffer put! <! >! timeout close! mult tap pipe]]
    [utimer.ext-async] ;; core.async monkey-patch
 
    [rum.core :as rum]
@@ -55,6 +55,16 @@
        (let [uuid (<! remove-chan)]
          (swap! app-state update-in [:layout] (partial remove-by-id uuid)))
        (recur))
+     state)})
+
+
+(def broadcast-in-chan (chan))
+(def broadcast-out-chan (chan))
+(def broadcast-out-mult (mult broadcast-out-chan))
+(defn mixin-broadcast-messenger []
+  {:did-mount
+   (fn [state]
+     (pipe broadcast-in-chan broadcast-out-chan)
      state)})
 
 

@@ -115,18 +115,24 @@
            ;; Local States
            *time-text (atom (editable-time (get element :initial "")))
            *label-text (atom (editable-label (get element :label "")))
+           *finished-once? (atom false)
            *extended-options (atom {:open? false
                                     :loop? false
                                     :sound alarm/default-alarm-sound
-                                    :test? false})
+                                    :test? false
+                                    :prog-start-label ""
+                                    :prog-close-after-msec nil
+                                    :prog-reset-after-msec nil})
            ]
        (add-watch *time-text ::*time-text #(rum/request-render component))
        (add-watch *label-text ::*label-text #(rum/request-render component))
+       (add-watch *finished-once? ::*finished-once? #(rum/request-render component))
        (add-watch *extended-options ::*extended-options #(rum/request-render component))
 
        (assoc state
               ::*time-text *time-text
               ::*label-text *label-text
+              ::*finished-once? *finished-once?
               ::*extended-options *extended-options)))}
 
   ;; Begin Render
@@ -136,6 +142,7 @@
         progress-s (str (clock/percent-progress clock) "%")
         *label-text (::*label-text state)
         *time-text (::*time-text state)
+        *finished-once? (::*finished-once? state)
         *extended-options (::*extended-options state)]
 
     ;; Configure Alarm Settings
@@ -147,7 +154,30 @@
     ;; play alarm if timer is finished
     (if (clock/finished? clock)
       (alarm/play! alarm)
-      (alarm/stop! alarm))
+      (do
+        (alarm/stop! alarm)
+        (reset! *finished-once? false)
+        ))
+
+    ;; Programmable Functionality. Operations are only called once.
+    (when (and (clock/finished? clock) (not @*finished-once?))
+      (reset! *finished-once? true)
+
+      ;; Close timer after a specified time
+      (when-let [prog-close-after-msec (:prog-close-after-msec @*extended-options)]
+        (go
+          (<! (timeout prog-close-after-msec))
+          (-> alarm alarm/stop!)
+          (-> clock clock/stop! clock/restart!)
+          (>! remove-chan (:id element))))
+
+      ;; Reset timer after a specified time
+      (when-let [prog-reset-after-msec (:prog-reset-after-msec @*extended-options)]
+        (go
+          (<! (timeout prog-reset-after-msec))
+          (-> alarm alarm/stop!)
+          (-> clock clock/stop! clock/restart!)
+          )))
 
 
     [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
@@ -268,7 +298,7 @@
         [:div.flat-timer-extended-options-container
          [:h2 "Alarm Settings"]
          [:.alarm-sound-setting
-          [:label "Alarm Sound"]
+          [:label "Alarm Sound: "]
           [:select {:value (:sound @*extended-options)
                     :on-change
                     (fn [e]
@@ -304,11 +334,36 @@
          [:hr]
          [:h2 "Programmable Settings"]
          [:.programmable-setting
-          
-          [:label "On Finish - Start Timer: "]
-          [:input {:placeholder "Label Name" :type "text"}]
+          [:label "On Finish - Start Timer with Label: "]
+          [:input {:placeholder "Label Name"
+                   :type "text"
+                   :defaultValue (:prog-start-label @*extended-options)
+                   :on-change
+                   (fn [e]
+                     (swap! *extended-options assoc :prog-start-label (-> e .-target .-value)))}]
           [:button.mat-button
-           "Test Label"]
-          ]
+           "Test Label"]]
+         
+         [:.programmable-setting
+          [:label "On Finish - Close this Timer: "]
+          [:select {:value (:prog-close-after-msec @*extended-options)
+                    :on-change
+                    (fn [e]
+                      (swap! *extended-options assoc :prog-close-after-msec (-> e .-target .-value)))}
+           [:option {:value nil} "Never"]
+           [:option {:value 5000} "After 5 Seconds"]
+           [:option {:value 10000} "After 10 Seconds"]
+           [:option {:value 30000} "After 30 Seconds"]]]
+
+         [:.programmable-setting
+          [:label "On Finish - Reset this Timer: "]
+          [:select {:value (:prog-reset-after-msec @*extended-options)
+                    :on-change
+                    (fn [e]
+                      (swap! *extended-options assoc :prog-reset-after-msec (-> e .-target .-value)))}
+           [:option {:value nil} "Never"]
+           [:option {:value 5000} "After 5 Seconds"]
+           [:option {:value 10000} "After 10 Seconds"]
+           [:option {:value 30000} "After 30 Seconds"]]]
          ]])
      ]))

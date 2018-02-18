@@ -388,12 +388,15 @@
             :margin-left (px 5)
             :margin-right (px 5)}]
 
+  [:.programmable-setting>select
+   {:width (px 160)}]
+
   ["input[type=checkbox]"
    {:padding (px 5)
     :margin-left (px 7)
     :margin-right (px 7)}]
 
-  ["input[type=text]"
+  [".programmable-setting>input[type=text]"
    {:width (px 120)
     :height (px 24)
     :background-color (color/darken color-beige 10)
