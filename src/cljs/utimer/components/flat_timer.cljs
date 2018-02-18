@@ -80,8 +80,18 @@
        (assoc state ::updater-interval-id updater-interval-id)))
    :will-unmount
    (fn [state]
-     (js/clearTimeout (::updater-interval-id state))
-     (dissoc state ::updater-interval-id))})
+     (let [element (-> state :rum/args first)
+           update-chan (-> state :rum/args (nth 2))]
+       (js/clearTimeout (::updater-interval-id state))
+       (put! update-chan
+             {:id (:id element)
+              :label ""
+              :progress 100
+              :duration 100
+              :started? false
+              :finished? true})
+
+       (dissoc state ::updater-interval-id)))})
 
 
 ;; Alarm functions
