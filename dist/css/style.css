@@ -203,10 +203,15 @@ h1 {
   padding-right: 10px;
   color: hsla(0, 0%, 0%, 0.2);
   cursor: pointer;
+  transition: transform 0.5s;
 }
 
 .flat-timer-middle-container .material-icons:hover {
   color: #f1ede4;
+}
+
+.flat-timer-middle-container .material-icons:active {
+  transform: translate(0, 3px);
 }
 
 .extended-options-button {
