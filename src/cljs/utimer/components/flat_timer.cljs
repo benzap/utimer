@@ -1,22 +1,26 @@
 (ns utimer.components.flat-timer
-  (:require [goog.functions]
-            [rum.core :as rum]
-            [cljs.core.async :refer [put!]]
-            [utimer.clock :as clock]
-            [utimer.timer :as timer]
-            [utimer.display :as display]
-            [utimer.alarm :as alarm]
-            [utimer.input-timer-parser :as parser]
-            [utimer.components.utils :as c-utils]))
+  (:require-macros
+   [cljs.core.async.macros :refer [go go-loop]])
+  (:require
+   [goog.functions]
+   [rum.core :as rum]
+   [cljs.core.async :refer [put! >! timeout close!]]
+   [utimer.clock :as clock]
+   [utimer.timer :as timer]
+   [utimer.display :as display]
+   [utimer.alarm :as alarm]
+   [utimer.input-timer-parser :as parser]
+   [utimer.components.utils :as c-utils]
+   [utimer.title-updater :refer [timer-updater-interval]]))
 
 
-(defn editable-label []
-  {:text ""
+(defn editable-label [default-text]
+  {:text default-text
    :edit-mode false})
 
 
-(defn editable-time []
-  {:text ""
+(defn editable-time [default-text]
+  {:text default-text
    :edit-mode false})
 
 
@@ -53,7 +57,31 @@
        (when-let [elem (.querySelector js/document ".flat-timer-input>input")]
          (.focus elem))
        )
-     state)})
+     state)
+
+   :did-mount
+   (fn [state]
+     (let [element (-> state :rum/args first)
+           update-chan (-> state :rum/args (nth 2))
+           *label-text (::*label-text state)
+           clock (:clock state)
+           alarm (c-utils/get-alarm state)
+           updater-interval-id
+           (js/setInterval
+            (fn []
+              (put! update-chan
+                    {:id (:id element)
+                     :label (:text @*label-text)
+                     :progress (clock/progress clock)
+                     :duration (clock/duration clock)
+                     :started? (clock/started? clock)
+                     :finished? (clock/finished? clock)})
+              ) timer-updater-interval)]
+       (assoc state ::updater-interval-id updater-interval-id)))
+   :will-unmount
+   (fn [state]
+     (js/clearTimeout (::updater-interval-id state))
+     (dissoc state ::updater-interval-id))})
 
 
 ;; Alarm functions
@@ -67,22 +95,39 @@
   (c-utils/mixin-alarm)
   (c-utils/mixin-clock)
   (mixin-flat-timer)
-  (rum/local (editable-label) ::*label-text)
-  (rum/local (editable-time) ::*time-text)
-  (rum/local {:open? false
-              :loop? false
-              :sound alarm/default-alarm-sound
-              :test? false}
-             ::*extended-options)
 
-  [state element remove-chan]
+  ;; Local state with initial props
+  {:will-mount
+   (fn [state]
+     (let [component (:rum/react-component state)
+           element (-> state :rum/args first)
+           
+           ;; Local States
+           *time-text (atom (editable-time (get element :initial "")))
+           *label-text (atom (editable-label (get element :label "")))
+           *extended-options (atom {:open? false
+                                    :loop? false
+                                    :sound alarm/default-alarm-sound
+                                    :test? false})
+           ]
+       (add-watch *time-text ::*time-text #(rum/request-render component))
+       (add-watch *label-text ::*label-text #(rum/request-render component))
+       (add-watch *extended-options ::*extended-options #(rum/request-render component))
+
+       (assoc state
+              ::*time-text *time-text
+              ::*label-text *label-text
+              ::*extended-options *extended-options)))}
+
+  ;; Begin Render
+  [state element remove-chan update-chan]
   (let [clock (:clock state)
         alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
         *label-text (::*label-text state)
         *time-text (::*time-text state)
         *extended-options (::*extended-options state)]
-    
+
     ;; Configure Alarm Settings
     (let [alarm (get-alarm state)]
       (alarm/set-loop! alarm (:loop? @*extended-options))
@@ -127,7 +172,14 @@
             "edit"]])
 
           [:div.flat-timer-edit-mode.noselect
-           [:input {:type "text" :value (:text @*label-text)
+           [:input {:type "text"
+                    :value (:text @*label-text)
+                    
+                    ;; Hack to move cursor to the end of the input text
+                    :on-focus
+                    (fn [e] 
+                      (let [this (.-target e)]
+                        (js/setTimeout #(aset this "selectionStart" 10000) 0)))
                     :on-change (fn [e] (swap! *label-text assoc :text (-> e .-target .-value)))
                     :on-key-down
                     (fn [e] (let [key (-> e .-key)]
@@ -142,20 +194,25 @@
        [:div.flat-timer-input
         (if-not (:edit-mode @*time-text)
           [:div.flat-timer-display-container
-           {:on-click (fn [e]
-                        (swap! *time-text assoc
-                               :edit-mode true
-                               :text ""
-                               ))
-                        
+           {:on-click #(swap! *time-text assoc :edit-mode true)
             :class (if-not (clock/finished? clock)
                      (display-timeleft-class clock)
                      (display-duration-class clock))}
            (if-not (clock/finished? clock)
              (display-timeleft clock)
              (display-duration clock))]
-          [:input {:type "text" :value (:text @*time-text)
-                   :on-change (fn [e] (swap! *time-text assoc :text (-> e .-target .-value)))
+          [:input {:type "text"
+                   :value (:text @*time-text)
+
+                   ;; Hack to move cursor to the end of the input text
+                   :on-focus
+                   (fn [e] 
+                     (let [this (.-target e)]
+                       (js/setTimeout #(aset this "selectionStart" 10000) 0)))
+                   :on-change
+                   (fn [e]
+                     (let [val (-> e .-target .-value)]
+                       (swap! *time-text assoc :text val)))
                    :on-key-down
                    (fn [e]
                      (let [key (-> e .-key)]
@@ -163,9 +220,12 @@
                          "Enter"
                          (do
                            (swap! *time-text assoc :edit-mode false)
-                           (-> clock
+                           (cond-> clock
+                               (not (empty? (:text @*time-text)))
                                (clock/change! (parser/parse->duration (:text @*time-text)))
+                               true
                                clock/restart!
+                               true
                                clock/stop!))
                          "Escape"
                          (do

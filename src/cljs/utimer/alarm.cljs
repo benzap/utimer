@@ -19,6 +19,7 @@
   (when-let [old-audio @*tested-audio]
     (.pause old-audio))
   (reset! *tested-audio (.cloneNode (:audio alarm) true))
+  (aset @*tested-audio "loop" false)
   (.play @*tested-audio))
 
 
@@ -39,7 +40,8 @@
 
 (defn set-sound!
   [{:keys [audio] :as alarm} src]
-  (let [old-src (.getAttribute audio "src")]
+  (let [old-src (.getAttribute audio "src")
+        src (if (= src "None") "" src)]
     (when (not= old-src src)
       (.setAttribute audio "src" src)
       (.load audio))

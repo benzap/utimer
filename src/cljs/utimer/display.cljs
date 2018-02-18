@@ -90,4 +90,52 @@
     (>0 minute) "display-timer-minute"
     (>0 second) "display-timer-second"
     :else "display-timer-second"))
-  
+
+
+(defn float->fix1 [x]
+  (let [s (.toFixed x 1)]
+    (string/replace s #"\.0" "")))
+
+
+(defn shorthand-year-display-timer
+  [{:keys [year day] :as time}]
+  (let [year (float->fix1 (+ year (/ day 365)))]
+    (str "~" year (auto-plural " Year" year))))
+
+
+(defn shorthand-day-display-timer
+  [{:keys [day hour] :as time}]
+  (let [day (float->fix1 (+ day (/ hour 24)))]
+    (str "~" day (auto-plural " Day" day))))
+
+
+(defn shorthand-hour-display-timer
+  [{:keys [hour minute] :as time}]
+  (let [hour (float->fix1 (+ hour (/ minute 60)))]
+    (str "~" hour (auto-plural " Hour" hour))))
+
+
+(defn shorthand-minute-display-timer
+  [{:keys [minute second] :as time}]
+  (if (>= minute 10)
+    (str "~" minute (auto-plural " Minute" minute))
+    (str minute ":" (fixed-two second))))
+
+
+(defn shorthand-second-display-timer
+  [{:keys [second] :as time}]
+  (if (>= second 10)
+    (str second "s")
+    (str second "s!")))
+
+
+(defn display-title-timeleft
+  [{:keys [year day hour minute second millisecond] :as time}]
+  (cond
+    (>0 year) (shorthand-year-display-timer time)
+    (>0 day) (shorthand-day-display-timer time)
+    (>0 hour) (shorthand-hour-display-timer time)
+    (>0 minute) (shorthand-minute-display-timer time)
+    (>0 second) (shorthand-second-display-timer time)
+    (>0 millisecond) (shorthand-second-display-timer time)
+    :else (invalid-display-timer)))

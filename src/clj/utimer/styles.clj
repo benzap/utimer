@@ -192,8 +192,12 @@
      :padding-left (px 10)
      :padding-right (px 10)
      :color (rgba 0 0 0 0.2)
-     :cursor "pointer"}
-    [:&:hover {:color (color/lighten color-beige 20)}]]]
+     :cursor "pointer"
+     :transition "transform 0.5s"}
+    [:&:hover {:color (color/lighten color-beige 20)
+               }]
+    [:&:active
+     {:transform "translate(0, 3px)"}]]]
 
   [:.extended-options-button
    {:margin-right (px 35)}]

@@ -12,6 +12,7 @@
    [utimer.clock :as clock]
    [utimer.layout :as layout]
    [utimer.utils :as utils :refer [create-uuid]]
+   [utimer.title-updater]
    
    ;; UTimer Components
    [utimer.components.header :refer [c-header]]
@@ -34,7 +35,7 @@
 (defonce app-state
   (atom
    {:edit-mode false
-    :layout [{:type :flat :initial "10 Minutes" :id (create-uuid)}
+    :layout [{:type :flat :initial "10 Minutes" :id (create-uuid) :label "Alarm #1"}
              {:type :flat :initial "5 Hours" :id (create-uuid)}]}))
 
 
@@ -48,16 +49,18 @@
 
 (def remove-chan (chan))
 (defn mixin-remove-timer []
-  {:did-mount (fn [state]
-                (go-loop []
-                  (let [uuid (<! remove-chan)]
-                    (swap! app-state update-in [:layout] (partial remove-by-id uuid)))
-                  (recur))
-                state)})
+  {:did-mount
+   (fn [state]
+     (go-loop []
+       (let [uuid (<! remove-chan)]
+         (swap! app-state update-in [:layout] (partial remove-by-id uuid)))
+       (recur))
+     state)})
 
 
 (rum/defc main <
   (mixin-remove-timer)
+  (utimer.title-updater/mixin-update-title)
   rum/reactive
   [app-state]
   (let [{:keys [layout]} (rum/react app-state)]
@@ -67,7 +70,7 @@
       (for [elem-data layout]
         (cond
           (= (:type elem-data) :flat)
-          (c-flat-timer elem-data remove-chan)))
+          (c-flat-timer elem-data remove-chan utimer.title-updater/update-chan)))
       (c-adder app-state)
      ]]))
 
