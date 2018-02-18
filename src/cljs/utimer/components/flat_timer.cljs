@@ -4,7 +4,7 @@
   (:require
    [goog.functions]
    [rum.core :as rum]
-   [cljs.core.async :refer [put! >! timeout close!]]
+   [cljs.core.async :refer [put! >! timeout close! untap]]
    [utimer.clock :as clock]
    [utimer.timer :as timer]
    [utimer.display :as display]
@@ -133,10 +133,47 @@
               ::*time-text *time-text
               ::*label-text *label-text
               ::*finished-once? *finished-once?
-              ::*extended-options *extended-options)))}
+              ::*extended-options *extended-options)))
+   :did-mount
+   (fn [state]
+     (let [[_ bcast-in] (-> state :rum/args (nth 3))
+           element (-> state :rum/args first)
+           clock (:clock state)
+           *label-text (::*label-text state)]
+       (go-loop []
+         (when-let [event (<! bcast-in)]
+           ;; Process Broadcasted events
+           (cond
+             ;; Close the channel on unmount
+             (and (= (:event-type event) :unmount)
+                  (= (:id element) (:id event)))
+             (close! bcast-in)
+             
+             ;; Start the timer if :start-timer has matching label
+             (and (= (:event-type event) :start-timer-with-label)
+                  (= (:label event) (:text @*label-text)))
+             (-> clock clock/restart! clock/start!)
+
+
+             (= (:event-type event) :echo)
+             (println (:id element) " - Echo - " (:text event))
+             )
+           ;; Only keep looping if we haven't received an unmount event
+           (when-not (and (= (:event-type event) :unmount)
+                          (= (:id element) (:id event)))
+             (recur))
+           )))
+     state)
+   :will-unmount
+   (fn [state]
+     ;; send a broadcast unmount event to remove the :did-mount go-loop
+     (let [[bcast-out _] (-> state :rum/args (nth 3))
+           element (-> state :rum/args first)]
+       (put! bcast-out {:event-type :unmount :id (:id element)}))
+     state)}
 
   ;; Begin Render
-  [state element remove-chan update-chan]
+  [state element remove-chan update-chan [bcast-out _]]
   (let [clock (:clock state)
         alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
@@ -162,6 +199,11 @@
     ;; Programmable Functionality. Operations are only called once.
     (when (and (clock/finished? clock) (not @*finished-once?))
       (reset! *finished-once? true)
+
+      ;; Start timer with the given label
+      (when-let [prog-start-label (:prog-start-label @*extended-options)]
+        (when-not (empty? prog-start-label)
+          (put! bcast-out {:event-type :start-timer-with-label :label prog-start-label})))
 
       ;; Close timer after a specified time
       (when-let [prog-close-after-msec (:prog-close-after-msec @*extended-options)]
@@ -342,6 +384,8 @@
                    (fn [e]
                      (swap! *extended-options assoc :prog-start-label (-> e .-target .-value)))}]
           [:button.mat-button
+           {:on-click #(put! bcast-out {:event-type :start-timer-with-label
+                                        :label (:prog-start-label @*extended-options)})}
            "Test Label"]]
          
          [:.programmable-setting

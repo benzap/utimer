@@ -67,10 +67,13 @@
      (pipe broadcast-in-chan broadcast-out-chan)
      state)})
 
+(defn test-broadcast []
+  (put! broadcast-in-chan {:event-type :echo :text "Hello"}))
 
 (rum/defc main <
   (mixin-remove-timer)
   (utimer.title-updater/mixin-update-title)
+  (mixin-broadcast-messenger)
   rum/reactive
   [app-state]
   (let [{:keys [layout]} (rum/react app-state)]
@@ -80,7 +83,10 @@
       (for [elem-data layout]
         (cond
           (= (:type elem-data) :flat)
-          (c-flat-timer elem-data remove-chan utimer.title-updater/update-chan)))
+          (c-flat-timer elem-data
+                        remove-chan
+                        utimer.title-updater/update-chan
+                        [broadcast-in-chan (tap broadcast-out-mult (chan (sliding-buffer 5)))])))
       (c-adder app-state)
      ]]))
 
