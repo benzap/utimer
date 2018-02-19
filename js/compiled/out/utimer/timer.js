@@ -7,8 +7,8 @@ goog.require('cljs_time.core');
 goog.require('cljs_time.coerce');
 cljs.core.enable_console_print_BANG_.call(null);
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","ms","utimer.timer/ms",-792243724),new cljs.core.Symbol("cljs.core","integer?","cljs.core/integer?",1710697810,null),cljs.core.integer_QMARK_);
-cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","datetime","utimer.timer/datetime",-336039763),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","instance?","cljs.core/instance?",2044751870,null),new cljs.core.Symbol("goog","date.UtcDateTime","goog/date.UtcDateTime",1564919323,null),new cljs.core.Symbol(null,"%","%",-950237169,null))),(function (p1__50655_SHARP_){
-return (p1__50655_SHARP_ instanceof goog.date.UtcDateTime);
+cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","datetime","utimer.timer/datetime",-336039763),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","instance?","cljs.core/instance?",2044751870,null),new cljs.core.Symbol("goog","date.UtcDateTime","goog/date.UtcDateTime",1564919323,null),new cljs.core.Symbol(null,"%","%",-950237169,null))),(function (p1__40760_SHARP_){
+return (p1__40760_SHARP_ instanceof goog.date.UtcDateTime);
 }));
 utimer.timer.default_duration_ms = ((5) * (1000));
 
@@ -45,12 +45,12 @@ var this__35674__auto____$1 = this;
 return this__35674__auto____$1.cljs$core$ILookup$_lookup$arity$3(null,k__35675__auto__,null);
 });
 
-utimer.timer.Timer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__35676__auto__,k50657,else__35677__auto__){
+utimer.timer.Timer.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__35676__auto__,k40762,else__35677__auto__){
 var self__ = this;
 var this__35676__auto____$1 = this;
-var G__50661 = k50657;
-var G__50661__$1 = (((G__50661 instanceof cljs.core.Keyword))?G__50661.fqn:null);
-switch (G__50661__$1) {
+var G__40766 = k40762;
+var G__40766__$1 = (((G__40766 instanceof cljs.core.Keyword))?G__40766.fqn:null);
+switch (G__40766__$1) {
 case "tick-time":
 return self__.tick_time;
 
@@ -64,7 +64,7 @@ return self__.duration;
 
 break;
 default:
-return cljs.core.get.call(null,self__.__extmap,k50657,else__35677__auto__);
+return cljs.core.get.call(null,self__.__extmap,k40762,else__35677__auto__);
 
 }
 });
@@ -80,10 +80,10 @@ return cljs.core.pr_sequential_writer.call(null,writer__35689__auto__,cljs.core.
 return cljs.core.pr_sequential_writer.call(null,writer__35689__auto__,pr_pair__35691__auto__,"#utimer.timer.Timer{",", ","}",opts__35690__auto__,cljs.core.concat.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),self__.tick_time],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"progress","progress",244323547),self__.progress],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"duration","duration",1444101068),self__.duration],null))], null),self__.__extmap));
 });
 
-utimer.timer.Timer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__50656){
+utimer.timer.Timer.prototype.cljs$core$IIterable$_iterator$arity$1 = (function (G__40761){
 var self__ = this;
-var G__50656__$1 = this;
-return (new cljs.core.RecordIter((0),G__50656__$1,3,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
+var G__40761__$1 = this;
+return (new cljs.core.RecordIter((0),G__40761__$1,3,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068)], null),(cljs.core.truth_(self__.__extmap)?cljs.core._iterator.call(null,self__.__extmap):cljs.core.nil_iter.call(null))));
 });
 
 utimer.timer.Timer.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__35672__auto__){
@@ -122,10 +122,10 @@ return h__35488__auto____$1;
 }
 });
 
-utimer.timer.Timer.prototype.cljs$core$IEquiv$_equiv$arity$2 = (function (this50658,other50659){
+utimer.timer.Timer.prototype.cljs$core$IEquiv$_equiv$arity$2 = (function (this40763,other40764){
 var self__ = this;
-var this50658__$1 = this;
-return (!((other50659 == null))) && ((this50658__$1.constructor === other50659.constructor)) && (cljs.core._EQ_.call(null,this50658__$1.tick_time,other50659.tick_time)) && (cljs.core._EQ_.call(null,this50658__$1.progress,other50659.progress)) && (cljs.core._EQ_.call(null,this50658__$1.duration,other50659.duration)) && (cljs.core._EQ_.call(null,this50658__$1.__extmap,other50659.__extmap));
+var this40763__$1 = this;
+return (!((other40764 == null))) && ((this40763__$1.constructor === other40764.constructor)) && (cljs.core._EQ_.call(null,this40763__$1.tick_time,other40764.tick_time)) && (cljs.core._EQ_.call(null,this40763__$1.progress,other40764.progress)) && (cljs.core._EQ_.call(null,this40763__$1.duration,other40764.duration)) && (cljs.core._EQ_.call(null,this40763__$1.__extmap,other40764.__extmap));
 });
 
 utimer.timer.Timer.prototype.cljs$core$IMap$_dissoc$arity$2 = (function (this__35683__auto__,k__35684__auto__){
@@ -138,21 +138,21 @@ return (new utimer.timer.Timer(self__.tick_time,self__.progress,self__.duration,
 }
 });
 
-utimer.timer.Timer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__35681__auto__,k__35682__auto__,G__50656){
+utimer.timer.Timer.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__35681__auto__,k__35682__auto__,G__40761){
 var self__ = this;
 var this__35681__auto____$1 = this;
-var pred__50662 = cljs.core.keyword_identical_QMARK_;
-var expr__50663 = k__35682__auto__;
-if(cljs.core.truth_(pred__50662.call(null,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),expr__50663))){
-return (new utimer.timer.Timer(G__50656,self__.progress,self__.duration,self__.__meta,self__.__extmap,null));
+var pred__40767 = cljs.core.keyword_identical_QMARK_;
+var expr__40768 = k__35682__auto__;
+if(cljs.core.truth_(pred__40767.call(null,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),expr__40768))){
+return (new utimer.timer.Timer(G__40761,self__.progress,self__.duration,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__50662.call(null,new cljs.core.Keyword(null,"progress","progress",244323547),expr__50663))){
-return (new utimer.timer.Timer(self__.tick_time,G__50656,self__.duration,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__40767.call(null,new cljs.core.Keyword(null,"progress","progress",244323547),expr__40768))){
+return (new utimer.timer.Timer(self__.tick_time,G__40761,self__.duration,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__50662.call(null,new cljs.core.Keyword(null,"duration","duration",1444101068),expr__50663))){
-return (new utimer.timer.Timer(self__.tick_time,self__.progress,G__50656,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__40767.call(null,new cljs.core.Keyword(null,"duration","duration",1444101068),expr__40768))){
+return (new utimer.timer.Timer(self__.tick_time,self__.progress,G__40761,self__.__meta,self__.__extmap,null));
 } else {
-return (new utimer.timer.Timer(self__.tick_time,self__.progress,self__.duration,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__35682__auto__,G__50656),null));
+return (new utimer.timer.Timer(self__.tick_time,self__.progress,self__.duration,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__35682__auto__,G__40761),null));
 }
 }
 }
@@ -164,10 +164,10 @@ var this__35686__auto____$1 = this;
 return cljs.core.seq.call(null,cljs.core.concat.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),self__.tick_time],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"progress","progress",244323547),self__.progress],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"duration","duration",1444101068),self__.duration],null))], null),self__.__extmap));
 });
 
-utimer.timer.Timer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__35673__auto__,G__50656){
+utimer.timer.Timer.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__35673__auto__,G__40761){
 var self__ = this;
 var this__35673__auto____$1 = this;
-return (new utimer.timer.Timer(self__.tick_time,self__.progress,self__.duration,G__50656,self__.__extmap,self__.__hash));
+return (new utimer.timer.Timer(self__.tick_time,self__.progress,self__.duration,G__40761,self__.__extmap,self__.__hash));
 });
 
 utimer.timer.Timer.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__35679__auto__,entry__35680__auto__){
@@ -198,29 +198,32 @@ utimer.timer.__GT_Timer = (function utimer$timer$__GT_Timer(tick_time,progress,d
 return (new utimer.timer.Timer(tick_time,progress,duration,null,null,null));
 });
 
-utimer.timer.map__GT_Timer = (function utimer$timer$map__GT_Timer(G__50660){
-return (new utimer.timer.Timer(new cljs.core.Keyword(null,"tick-time","tick-time",-255591164).cljs$core$IFn$_invoke$arity$1(G__50660),new cljs.core.Keyword(null,"progress","progress",244323547).cljs$core$IFn$_invoke$arity$1(G__50660),new cljs.core.Keyword(null,"duration","duration",1444101068).cljs$core$IFn$_invoke$arity$1(G__50660),null,cljs.core.not_empty.call(null,cljs.core.dissoc.call(null,G__50660,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068))),null));
+utimer.timer.map__GT_Timer = (function utimer$timer$map__GT_Timer(G__40765){
+return (new utimer.timer.Timer(new cljs.core.Keyword(null,"tick-time","tick-time",-255591164).cljs$core$IFn$_invoke$arity$1(G__40765),new cljs.core.Keyword(null,"progress","progress",244323547).cljs$core$IFn$_invoke$arity$1(G__40765),new cljs.core.Keyword(null,"duration","duration",1444101068).cljs$core$IFn$_invoke$arity$1(G__40765),null,cljs.core.not_empty.call(null,cljs.core.dissoc.call(null,G__40765,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068))),null));
 });
 
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Symbol("cljs.core","boolean?","cljs.core/boolean?",1400713761,null),cljs.core.boolean_QMARK_);
+cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","finished?","utimer.timer/finished?",-2134669326),new cljs.core.Symbol("cljs.core","boolean?","cljs.core/boolean?",1400713761,null),cljs.core.boolean_QMARK_);
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","datetime","utimer.timer/datetime",-336039763),new cljs.core.Keyword("utimer.timer","datetime","utimer.timer/datetime",-336039763));
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","ms","utimer.timer/ms",-792243724),new cljs.core.Keyword("utimer.timer","ms","utimer.timer/ms",-792243724));
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563),new cljs.core.Keyword("utimer.timer","ms","utimer.timer/ms",-792243724),new cljs.core.Keyword("utimer.timer","ms","utimer.timer/ms",-792243724));
-cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","keys","cljs.spec.alpha/keys",1109346032,null),new cljs.core.Keyword(null,"req-un","req-un",1074571008),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null)),cljs.spec.alpha.map_spec_impl.call(null,cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"req-un","req-un",1074571008),new cljs.core.Keyword(null,"opt-un","opt-un",883442496),new cljs.core.Keyword(null,"gfn","gfn",791517474),new cljs.core.Keyword(null,"pred-exprs","pred-exprs",1792271395),new cljs.core.Keyword(null,"keys-pred","keys-pred",858984739),new cljs.core.Keyword(null,"opt-keys","opt-keys",1262688261),new cljs.core.Keyword(null,"req-specs","req-specs",553962313),new cljs.core.Keyword(null,"req","req",-326448303),new cljs.core.Keyword(null,"req-keys","req-keys",514319221),new cljs.core.Keyword(null,"opt-specs","opt-specs",-384905450),new cljs.core.Keyword(null,"pred-forms","pred-forms",172611832),new cljs.core.Keyword(null,"opt","opt",-794706369)],[new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null),null,null,new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (G__50666){
-return cljs.core.map_QMARK_.call(null,G__50666);
-}),(function (G__50666){
-return cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"started?","started?",-1301062863));
-}),(function (G__50666){
-return cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164));
-}),(function (G__50666){
-return cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"progress","progress",244323547));
-}),(function (G__50666){
-return cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"duration","duration",1444101068));
-})], null),(function (G__50666){
-return (cljs.core.map_QMARK_.call(null,G__50666)) && (cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"started?","started?",-1301062863))) && (cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164))) && (cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"progress","progress",244323547))) && (cljs.core.contains_QMARK_.call(null,G__50666,new cljs.core.Keyword(null,"duration","duration",1444101068)));
-}),cljs.core.PersistentVector.EMPTY,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null),null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"started?","started?",-1301062863),new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068)], null),cljs.core.PersistentVector.EMPTY,new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","map?","cljs.core/map?",-1390345523,null),new cljs.core.Symbol(null,"%","%",-950237169,null))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"started?","started?",-1301062863))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"tick-time","tick-time",-255591164))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"progress","progress",244323547))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"duration","duration",1444101068)))], null),null])));
+cljs.spec.alpha.def_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","keys","cljs.spec.alpha/keys",1109346032,null),new cljs.core.Keyword(null,"req-un","req-un",1074571008),new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","finished?","utimer.timer/finished?",-2134669326),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null)),cljs.spec.alpha.map_spec_impl.call(null,cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"req-un","req-un",1074571008),new cljs.core.Keyword(null,"opt-un","opt-un",883442496),new cljs.core.Keyword(null,"gfn","gfn",791517474),new cljs.core.Keyword(null,"pred-exprs","pred-exprs",1792271395),new cljs.core.Keyword(null,"keys-pred","keys-pred",858984739),new cljs.core.Keyword(null,"opt-keys","opt-keys",1262688261),new cljs.core.Keyword(null,"req-specs","req-specs",553962313),new cljs.core.Keyword(null,"req","req",-326448303),new cljs.core.Keyword(null,"req-keys","req-keys",514319221),new cljs.core.Keyword(null,"opt-specs","opt-specs",-384905450),new cljs.core.Keyword(null,"pred-forms","pred-forms",172611832),new cljs.core.Keyword(null,"opt","opt",-794706369)],[new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","finished?","utimer.timer/finished?",-2134669326),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null),null,null,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [(function (G__40771){
+return cljs.core.map_QMARK_.call(null,G__40771);
+}),(function (G__40771){
+return cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"started?","started?",-1301062863));
+}),(function (G__40771){
+return cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"finished?","finished?",2067288119));
+}),(function (G__40771){
+return cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164));
+}),(function (G__40771){
+return cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"progress","progress",244323547));
+}),(function (G__40771){
+return cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"duration","duration",1444101068));
+})], null),(function (G__40771){
+return (cljs.core.map_QMARK_.call(null,G__40771)) && (cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"started?","started?",-1301062863))) && (cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"finished?","finished?",2067288119))) && (cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164))) && (cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"progress","progress",244323547))) && (cljs.core.contains_QMARK_.call(null,G__40771,new cljs.core.Keyword(null,"duration","duration",1444101068)));
+}),cljs.core.PersistentVector.EMPTY,new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","started?","utimer.timer/started?",149398364),new cljs.core.Keyword("utimer.timer","finished?","utimer.timer/finished?",-2134669326),new cljs.core.Keyword("utimer.timer","tick-time","utimer.timer/tick-time",37766333),new cljs.core.Keyword("utimer.timer","progress","utimer.timer/progress",1108589876),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null),null,new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"started?","started?",-1301062863),new cljs.core.Keyword(null,"finished?","finished?",2067288119),new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),new cljs.core.Keyword(null,"progress","progress",244323547),new cljs.core.Keyword(null,"duration","duration",1444101068)], null),cljs.core.PersistentVector.EMPTY,new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","map?","cljs.core/map?",-1390345523,null),new cljs.core.Symbol(null,"%","%",-950237169,null))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"started?","started?",-1301062863))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"finished?","finished?",2067288119))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"tick-time","tick-time",-255591164))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"progress","progress",244323547))),cljs.core.list(new cljs.core.Symbol("cljs.core","fn","cljs.core/fn",-1065745098,null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"%","%",-950237169,null)], null),cljs.core.list(new cljs.core.Symbol("cljs.core","contains?","cljs.core/contains?",-976526835,null),new cljs.core.Symbol(null,"%","%",-950237169,null),new cljs.core.Keyword(null,"duration","duration",1444101068)))], null),null])));
 utimer.timer.new_timer = (function utimer$timer$new_timer(duration){
-return utimer.timer.map__GT_Timer.call(null,new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"started?","started?",-1301062863),false,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),cljs_time.core.now.call(null),new cljs.core.Keyword(null,"progress","progress",244323547),(0),new cljs.core.Keyword(null,"duration","duration",1444101068),duration], null));
+return utimer.timer.map__GT_Timer.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"started?","started?",-1301062863),false,new cljs.core.Keyword(null,"finished?","finished?",2067288119),false,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),cljs_time.core.now.call(null),new cljs.core.Keyword(null,"progress","progress",244323547),(0),new cljs.core.Keyword(null,"duration","duration",1444101068),duration], null));
 });
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Symbol("utimer.timer","new-timer","utimer.timer/new-timer",1371860230,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","fspec","cljs.spec.alpha/fspec",-1289128341,null),new cljs.core.Keyword(null,"ret","ret",-468222814),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.fspec_impl.call(null,null,null,cljs.spec.alpha.spec_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null,null));
 utimer.timer.start = (function utimer$timer$start(timer){
@@ -232,23 +235,25 @@ return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"started?","st
 });
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Symbol("utimer.timer","stop","utimer.timer/stop",833128224,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","fspec","cljs.spec.alpha/fspec",-1289128341,null),new cljs.core.Keyword(null,"args","args",1315556576),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),new cljs.core.Keyword(null,"ret","ret",-468222814),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.fspec_impl.call(null,cljs.spec.alpha.spec_impl.call(null,cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.cat_impl.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"timer","timer",-1266967739)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)], null)),null,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.spec_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null,null));
 utimer.timer.reset = (function utimer$timer$reset(timer){
-return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"progress","progress",244323547),(0));
+return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"progress","progress",244323547),(0),new cljs.core.Keyword(null,"finished?","finished?",2067288119),false);
 });
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Symbol("utimer.timer","reset","utimer.timer/reset",1283950052,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","fspec","cljs.spec.alpha/fspec",-1289128341,null),new cljs.core.Keyword(null,"args","args",1315556576),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),new cljs.core.Keyword(null,"ret","ret",-468222814),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.fspec_impl.call(null,cljs.spec.alpha.spec_impl.call(null,cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.cat_impl.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"timer","timer",-1266967739)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)], null)),null,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.spec_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null,null));
 utimer.timer.change_duration = (function utimer$timer$change_duration(timer,duration){
 return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"duration","duration",1444101068),duration);
 });
 cljs.spec.alpha.def_impl.call(null,new cljs.core.Symbol("utimer.timer","change-duration","utimer.timer/change-duration",-1184650960,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","fspec","cljs.spec.alpha/fspec",-1289128341,null),new cljs.core.Keyword(null,"args","args",1315556576),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword(null,"duration","duration",1444101068),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)),new cljs.core.Keyword(null,"ret","ret",-468222814),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226)),cljs.spec.alpha.fspec_impl.call(null,cljs.spec.alpha.spec_impl.call(null,cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword(null,"duration","duration",1444101068),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)),cljs.spec.alpha.cat_impl.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword(null,"duration","duration",1444101068)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)], null)),null,null),cljs.core.list(new cljs.core.Symbol("cljs.spec.alpha","cat","cljs.spec.alpha/cat",-1471398329,null),new cljs.core.Keyword(null,"timer","timer",-1266967739),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword(null,"duration","duration",1444101068),new cljs.core.Keyword("utimer.timer","duration","utimer.timer/duration",614380563)),cljs.spec.alpha.spec_impl.call(null,new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null),new cljs.core.Keyword("utimer.timer","timer","utimer.timer/timer",-969846226),null,null,null));
-utimer.timer.tick = (function utimer$timer$tick(p__50667){
-var map__50668 = p__50667;
-var map__50668__$1 = ((((!((map__50668 == null)))?((((map__50668.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__50668.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__50668):map__50668);
-var timer = map__50668__$1;
-var started_QMARK_ = cljs.core.get.call(null,map__50668__$1,new cljs.core.Keyword(null,"started?","started?",-1301062863));
-var tick_time = cljs.core.get.call(null,map__50668__$1,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164));
-var progress = cljs.core.get.call(null,map__50668__$1,new cljs.core.Keyword(null,"progress","progress",244323547));
+utimer.timer.tick = (function utimer$timer$tick(p__40772){
+var map__40773 = p__40772;
+var map__40773__$1 = ((((!((map__40773 == null)))?((((map__40773.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__40773.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__40773):map__40773);
+var timer = map__40773__$1;
+var started_QMARK_ = cljs.core.get.call(null,map__40773__$1,new cljs.core.Keyword(null,"started?","started?",-1301062863));
+var tick_time = cljs.core.get.call(null,map__40773__$1,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164));
+var progress = cljs.core.get.call(null,map__40773__$1,new cljs.core.Keyword(null,"progress","progress",244323547));
+var duration = cljs.core.get.call(null,map__40773__$1,new cljs.core.Keyword(null,"duration","duration",1444101068));
 if(cljs.core.truth_(started_QMARK_)){
 var now = cljs_time.core.now.call(null);
-return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),now,new cljs.core.Keyword(null,"progress","progress",244323547),(progress + (cljs_time.coerce.to_long.call(null,now) - cljs_time.coerce.to_long.call(null,tick_time))));
+var progress__$1 = (progress + (cljs_time.coerce.to_long.call(null,now) - cljs_time.coerce.to_long.call(null,tick_time)));
+return cljs.core.assoc.call(null,timer,new cljs.core.Keyword(null,"tick-time","tick-time",-255591164),now,new cljs.core.Keyword(null,"progress","progress",244323547),progress__$1,new cljs.core.Keyword(null,"finished?","finished?",2067288119),(progress__$1 >= duration));
 } else {
 return timer;
 }
