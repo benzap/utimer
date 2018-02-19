@@ -6,6 +6,7 @@
    [clojure.spec.alpha :as s]
    [utimer.alarm :as alarm]
    [utimer.clock :as clock]
+   [utimer.events :as events]
    [utimer.input-timer-parser :refer [parse->duration]]
    ))
 
@@ -44,23 +45,33 @@
 (defn mixin-clock []
   {:will-mount
    (fn [state]
-     (let [element (-> state :rum/args first)
+     (let [component (:rum/react-component state)
+           element (-> state :rum/args first)
+           [bcast-out _] (-> state :rum/args (nth 3))
            initial-value (parse->duration (get element :initial "5 Minutes"))
-           clock (clock/new-clock initial-value)
-           component (:rum/react-component state)]
-       (add-watch
-        (:*timer clock) ::timer
-        (fn [_ _ _ _] (rum/request-render component)))
+           clock (clock/new-clock initial-value)]
 
        (assoc state
               :clock clock)))
 
    :did-mount
    (fn [state]
-     (let [clock (:clock state)
+     (let [component (:rum/react-component state)
+           element (-> state :rum/args first)
+           [bcast-out _] (-> state :rum/args (nth 3))
+           clock (:clock state)
            progress-channel (:progress-channel clock)]
 
        (clock/init! clock)
+
+       (add-watch
+        (:*timer clock) ::timer
+        (fn [_ _ old new]
+          (when (and (= (:finished? old) false)
+                     (= (:finished? new) true))
+            (put! bcast-out (events/event-finished-timer
+                             (:id element) (-> state :*label-text deref :text))))
+          (rum/request-render component)))
 
        (go-loop []
          (let [timer (<! progress-channel)

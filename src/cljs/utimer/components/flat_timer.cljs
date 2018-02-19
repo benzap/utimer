@@ -18,7 +18,8 @@
    [utimer.alarm :as alarm]
    [utimer.input-timer-parser :as parser]
    [utimer.components.utils :as c-utils]
-   [utimer.title-updater :refer [timer-updater-interval]]))
+   [utimer.title-updater :refer [timer-updater-interval]]
+   [utimer.events :as events]))
 
 
 (defn editable-label [default-text]
@@ -70,7 +71,7 @@
    (fn [state]
      (let [element (-> state :rum/args first)
            update-chan (-> state :rum/args (nth 2))
-           *label-text (::*label-text state)
+           *label-text (:*label-text state)
            clock (:clock state)
            alarm (c-utils/get-alarm state)
            updater-interval-id
@@ -133,41 +134,69 @@
                                          :prog-reset-after-msec nil}))
            ]
        (add-watch *time-text ::*time-text #(rum/request-render component))
-       (add-watch *label-text ::*label-text #(rum/request-render component))
+       (add-watch *label-text :*label-text #(rum/request-render component))
        (add-watch *finished-once? ::*finished-once? #(rum/request-render component))
        (add-watch *extended-options ::*extended-options #(rum/request-render component))
 
        (assoc state
               ::*time-text *time-text
-              ::*label-text *label-text
+              :*label-text *label-text
               ::*finished-once? *finished-once?
               ::*extended-options *extended-options)))
    :did-mount
    (fn [state]
-     (let [[_ bcast-in] (-> state :rum/args (nth 3))
-           element (-> state :rum/args first)
+     (let [[element remove-chan update-chan [bcast-out bcast-in]] (-> state :rum/args)
            clock (:clock state)
-           *label-text (::*label-text state)]
+           alarm (get-alarm state)
+           *label-text (:*label-text state)
+           *extended-options (::*extended-options state)]
        (go-loop []
          (when-let [event (<! bcast-in)]
            ;; Process Broadcasted events
            (cond
              ;; Close the channel on unmount
-             (and (= (:event-type event) :unmount)
+             (and (events/is-event-timer-unmount? event)
                   (= (:id element) (:id event)))
              (close! bcast-in)
              
              ;; Start the timer if :start-timer has matching label
-             (and (= (:event-type event) :start-timer-with-label)
+             (and (events/is-event-start-timer-with-label? event)
                   (= (:label event) (:text @*label-text)))
              (-> clock clock/restart! clock/start!)
 
+             ;; Finished the timer event
+             (and (events/is-event-finished-timer? event)
+                  (= (:id event) (:id element)))
+             (do
+               ;; Start timer with the given label
+               (when-let [prog-start-label (:prog-start-label @*extended-options)]
+                 (when-not (empty? prog-start-label)
+                   (put! bcast-out (events/event-start-timer-with-label prog-start-label))))
 
-             (= (:event-type event) :echo)
+               ;; Close timer after a specified time
+               (when-let [prog-close-after-msec (:prog-close-after-msec @*extended-options)]
+                 (when-not (<= prog-close-after-msec 0)
+                   (go
+                     (<! (timeout prog-close-after-msec))
+                     (-> alarm alarm/stop!)
+                     (-> clock clock/stop! clock/restart!)
+                     (>! remove-chan (:id element)))))
+
+               ;; Reset timer after a specified time
+               (when-let [prog-reset-after-msec (:prog-reset-after-msec @*extended-options)]
+                 (when-not (<= prog-reset-after-msec 0)
+                   (go
+                     (<! (timeout prog-reset-after-msec))
+                     (-> alarm alarm/stop!)
+                     (-> clock clock/stop! clock/restart!)
+                     ))))
+
+             ;; Echo Event for testing
+             (events/is-event-echo? event)
              (println (:id element) " - Echo - " (:text event))
              )
            ;; Only keep looping if we haven't received an unmount event
-           (when-not (and (= (:event-type event) :unmount)
+           (when-not (and (events/is-event-timer-unmount? event)
                           (= (:id element) (:id event)))
              (recur))
            )))
@@ -177,7 +206,7 @@
      ;; send a broadcast unmount event to remove the :did-mount go-loop
      (let [[bcast-out _] (-> state :rum/args (nth 3))
            element (-> state :rum/args first)]
-       (put! bcast-out {:event-type :unmount :id (:id element)}))
+       (put! bcast-out (events/event-timer-unmount (:id element))))
      state)}
 
   ;; Begin Render
@@ -185,7 +214,7 @@
   (let [clock (:clock state)
         alarm (get-alarm state)
         progress-s (str (clock/percent-progress clock) "%")
-        *label-text (::*label-text state)
+        *label-text (:*label-text state)
         *time-text (::*time-text state)
         *finished-once? (::*finished-once? state)
         *extended-options (::*extended-options state)]
@@ -203,34 +232,6 @@
         (alarm/stop! alarm)
         (reset! *finished-once? false)
         ))
-
-    ;; Programmable Functionality. Operations are only called once.
-    (when (and (clock/finished? clock) (not @*finished-once?))
-      (reset! *finished-once? true)
-
-      ;; Start timer with the given label
-      (when-let [prog-start-label (:prog-start-label @*extended-options)]
-        (when-not (empty? prog-start-label)
-          (put! bcast-out {:event-type :start-timer-with-label :label prog-start-label})))
-
-      ;; Close timer after a specified time
-      (when-let [prog-close-after-msec (:prog-close-after-msec @*extended-options)]
-        (when-not (<= prog-close-after-msec 0)
-          (go
-            (<! (timeout prog-close-after-msec))
-            (-> alarm alarm/stop!)
-            (-> clock clock/stop! clock/restart!)
-            (>! remove-chan (:id element)))))
-
-      ;; Reset timer after a specified time
-      (when-let [prog-reset-after-msec (:prog-reset-after-msec @*extended-options)]
-        (when-not (<= prog-reset-after-msec 0)
-          (go
-            (<! (timeout prog-reset-after-msec))
-            (-> alarm alarm/stop!)
-            (-> clock clock/stop! clock/restart!)
-            ))))
-
 
     [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
      [:div.flat-timer-main {:class (when (clock/finished? clock) "anim-color-reversal-normal")}
@@ -397,8 +398,8 @@
                    (fn [e]
                      (swap! *extended-options assoc :prog-start-label (-> e .-target .-value)))}]
           [:button.mat-button
-           {:on-click #(put! bcast-out {:event-type :start-timer-with-label
-                                        :label (:prog-start-label @*extended-options)})}
+           {:on-click #(put! bcast-out (events/event-start-timer-with-label
+                                        (:prog-start-label @*extended-options)))}
            "Test Label"]]
          
          [:.programmable-setting

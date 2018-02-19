@@ -23,7 +23,7 @@
    :*timer (atom (timer/new-timer duration))
    :tick-rate tick-rate
    :event-channel (chan)
-   :progress-channel (chan (sliding-buffer 10))})
+   :progress-channel (chan (sliding-buffer 3))})
 
 (s/def ::tick-rate ::timer/ms)
 (s/def ::event-channel ::channel)

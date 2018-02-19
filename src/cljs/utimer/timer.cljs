@@ -21,16 +21,18 @@
 
 
 (s/def ::started? boolean?)
+(s/def ::finished? boolean?)
 (s/def ::tick-time ::datetime)
 (s/def ::progress ::ms)
 (s/def ::duration ::ms)
 
 
-(s/def ::timer (s/keys :req-un [::started? ::tick-time ::progress ::duration]))
+(s/def ::timer (s/keys :req-un [::started? ::finished? ::tick-time ::progress ::duration]))
 
 
 (defn new-timer [duration]
   (map->Timer {:started? false
+               :finished? false
                :tick-time (time/now)
                :progress 0
                :duration duration
@@ -59,7 +61,9 @@
 
 
 (defn reset [timer]
-  (assoc timer :progress 0))
+  (assoc timer
+         :progress 0
+         :finished? false))
 
 (s/fdef reset
         :args (s/cat :timer ::timer)
@@ -74,13 +78,15 @@
         :ret ::timer)
 
 
-(defn tick [{:keys [started? tick-time progress] :as timer}]
+(defn tick [{:keys [started? tick-time progress duration] :as timer}]
   (if started?
-    (let [now (time/now)]
+    (let [now (time/now)
+          progress (+ progress (- (to-long now)
+                                  (to-long tick-time)))]
       (assoc timer
              :tick-time now
-             :progress (+ progress (- (to-long now)
-                                      (to-long tick-time)))))
+             :progress progress
+             :finished? (>= progress duration)))
     timer))
 
 (s/fdef tick
