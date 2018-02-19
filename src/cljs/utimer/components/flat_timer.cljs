@@ -1,4 +1,11 @@
 (ns utimer.components.flat-timer
+  "The main flat-timer react component implementation
+
+  TODO: get rid of remove-chan, and use broadcast implementation
+  TODO: get rid of update-chan, and use broadcast implementation
+  TODO: combine local state variables into single local state map
+  TODO: move stateful functionality out of render loop and into broadcast implementation
+  "
   (:require-macros
    [cljs.core.async.macros :refer [go go-loop]])
   (:require
@@ -116,13 +123,14 @@
            *time-text (atom (editable-time (get element :initial "")))
            *label-text (atom (editable-label (get element :label "")))
            *finished-once? (atom false)
-           *extended-options (atom {:open? false
-                                    :loop? false
-                                    :sound alarm/default-alarm-sound
-                                    :test? false
-                                    :prog-start-label ""
-                                    :prog-close-after-msec nil
-                                    :prog-reset-after-msec nil})
+           *extended-options (atom (get element :options 
+                                        {:open? false
+                                         :loop? false
+                                         :sound alarm/default-alarm-sound
+                                         :test? false
+                                         :prog-start-label ""
+                                         :prog-close-after-msec nil
+                                         :prog-reset-after-msec nil}))
            ]
        (add-watch *time-text ::*time-text #(rum/request-render component))
        (add-watch *label-text ::*label-text #(rum/request-render component))
@@ -207,19 +215,21 @@
 
       ;; Close timer after a specified time
       (when-let [prog-close-after-msec (:prog-close-after-msec @*extended-options)]
-        (go
-          (<! (timeout prog-close-after-msec))
-          (-> alarm alarm/stop!)
-          (-> clock clock/stop! clock/restart!)
-          (>! remove-chan (:id element))))
+        (when-not (<= prog-close-after-msec 0)
+          (go
+            (<! (timeout prog-close-after-msec))
+            (-> alarm alarm/stop!)
+            (-> clock clock/stop! clock/restart!)
+            (>! remove-chan (:id element)))))
 
       ;; Reset timer after a specified time
       (when-let [prog-reset-after-msec (:prog-reset-after-msec @*extended-options)]
-        (go
-          (<! (timeout prog-reset-after-msec))
-          (-> alarm alarm/stop!)
-          (-> clock clock/stop! clock/restart!)
-          )))
+        (when-not (<= prog-reset-after-msec 0)
+          (go
+            (<! (timeout prog-reset-after-msec))
+            (-> alarm alarm/stop!)
+            (-> clock clock/stop! clock/restart!)
+            ))))
 
 
     [:div.ut-timer.flat-timer {:class (str "timer-" (:id element))}
@@ -290,7 +300,7 @@
                    :on-focus
                    (fn [e] 
                      (let [this (.-target e)]
-                       (js/setTimeout #(aset this "selectionStart" 10000) 0)))
+                       (js/setTimeout #(aset this "selectionStart" 10000) 10)))
                    :on-change
                    (fn [e]
                      (let [val (-> e .-target .-value)]
@@ -340,13 +350,14 @@
         [:div.flat-timer-extended-options-container
          [:h2 "Alarm Settings"]
          [:.alarm-sound-setting
-          [:label "Alarm Sound: "]
+          [:label "Sound: "]
           [:select {:value (:sound @*extended-options)
                     :on-change
                     (fn [e]
                       (swap! *extended-options assoc :sound (-> e .-target .-value)))}
            [:option {:value nil} "None"]
            [:option {:value "audio/analog_alarm.mp3"} "Analog Alarm"]
+           [:option {:value "audio/boxing_bell.mp3"} "Boxing Bell"]
            [:option {:value "audio/chinese_gong.mp3"} "Chinese Gong"]
            [:option {:value "audio/dixie_horn.mp3"} "Dixie Horn"]
            [:option {:value "audio/fog_horn.mp3"} "Fog Horn"]
@@ -360,23 +371,25 @@
            [:option {:value "audio/shotgun.mp3"} "Shotgun"]
            [:option {:value "audio/speaker_pulse.mp3"} "Speaker Pulse"]
            [:option {:value "audio/train_whistle.mp3"} "Train Whistle"]
-           [:option {:value "audio/war_alarm.mp3"} "War Alarm"]]
+           [:option {:value "audio/war_alarm.mp3"} "War Alarm"]
+           [:option {:value "audio/z_ultimate_alarm.mp3"} "Z-Ultimate Alarm"]]
           [:button.mat-button
            {:on-click #(alarm/test-play! alarm)}
            "Test Alarm"]]
          [:.alarm-sound-setting
-          [:label "Alarm Repeat?"]
-          [:input {:type "checkbox"
-                   :defaultChecked (:loop? @*extended-options)
-                   :on-change
-                   (fn [e]
-                     (let [val (-> e .-target .-checked)]
-                       (swap! *extended-options assoc :loop? val)))
-                   }]]
+          [:label "Repeat?"]
+          [:select {:value (:loop? @*extended-options)
+                    :on-change
+                    #(swap! *extended-options assoc :loop? (case (-> % .-target .-value)
+                                                             "true" true
+                                                             "false" false))}
+           [:option {:value "false"} "No"]
+           [:option {:value "true"} "Yes"]]]
          [:hr]
          [:h2 "Programmable Settings"]
+         [:h3 "On Finish"]
          [:.programmable-setting
-          [:label "On Finish - Start Timer with Label: "]
+          [:label "Start Timer with Label: "]
           [:input {:placeholder "Label Name"
                    :type "text"
                    :defaultValue (:prog-start-label @*extended-options)
@@ -389,23 +402,23 @@
            "Test Label"]]
          
          [:.programmable-setting
-          [:label "On Finish - Close this Timer: "]
+          [:label "Close this Timer: "]
           [:select {:value (:prog-close-after-msec @*extended-options)
                     :on-change
                     (fn [e]
                       (swap! *extended-options assoc :prog-close-after-msec (-> e .-target .-value)))}
-           [:option {:value nil} "Never"]
+           [:option {:value -1} "Never"]
            [:option {:value 5000} "After 5 Seconds"]
            [:option {:value 10000} "After 10 Seconds"]
            [:option {:value 30000} "After 30 Seconds"]]]
 
          [:.programmable-setting
-          [:label "On Finish - Reset this Timer: "]
+          [:label "Reset this Timer: "]
           [:select {:value (:prog-reset-after-msec @*extended-options)
                     :on-change
                     (fn [e]
                       (swap! *extended-options assoc :prog-reset-after-msec (-> e .-target .-value)))}
-           [:option {:value nil} "Never"]
+           [:option {:value -1} "Never"]
            [:option {:value 5000} "After 5 Seconds"]
            [:option {:value 10000} "After 10 Seconds"]
            [:option {:value 30000} "After 30 Seconds"]]]

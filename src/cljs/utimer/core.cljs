@@ -13,7 +13,8 @@
    [utimer.layout :as layout]
    [utimer.utils :as utils :refer [create-uuid]]
    [utimer.title-updater]
-   
+   [utimer.flat-timer :refer [new-flat-timer]]
+
    ;; UTimer Components
    [utimer.components.header :refer [c-header]]
    [utimer.components.layout :refer [c-layout]]
@@ -35,12 +36,7 @@
 (defonce app-state
   (atom
    {:edit-mode false
-    :layout [{:type :flat :initial "10 Minutes" :id (create-uuid) :label "Alarm #1"}
-             {:type :flat :initial "5 Hours" :id (create-uuid)}]}))
-
-
-(defn add-flat-alarm [initial]
-  (swap! app-state update-in [:layout] conj {:type :flat :initial initial :id (create-uuid)}))
+    :layout layout/template-default}))
 
 
 (defn remove-by-id [id layout]
@@ -58,6 +54,7 @@
      state)})
 
 
+;; Event broadcasting between alarm components
 (def broadcast-in-chan (chan))
 (def broadcast-out-chan (chan))
 (def broadcast-out-mult (mult broadcast-out-chan))

@@ -17,16 +17,18 @@ timer.
   /none yet/
 
 * Programming Tasks
-** TODO General Features [4/6]
+** TODO General Features [6/8]
   - [X] Backend timer functionality
   - [X] Simple Timer
   - [X] Better SVG-based timer animations
   - [X] Choice of sounds
+  - [X] Cascading tasks timer
+  - [X] Dropdown of common timer templates
+  - [ ] Different SVG Duration Animations
   - [ ] Fade-in sound timer
-  - [ ] Cascading tasks timer
-** TODO Alternative Features [0/3]
-    - [ ] Pomodoro Timer
-    - [ ] Interval Training Timer
+** TODO Alternative Features [2/3]
+    - [X] Pomodoro Timer
+    - [X] Interval Training Timer
     - [ ] UTC-compliant alarm
 * Tidbits
 ** Force dist folder to gh-pages branch

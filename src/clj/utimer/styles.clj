@@ -97,7 +97,8 @@
    {:display "flex"
     :flex-direction "row"
     :justify-content "space-between"
-    :padding (px 10)
+    :padding-left (px 10)
+    :padding-right (px 10)
     :background-color (color/darken color-beige 10)
     :line-height "100%"
     :height "100%"}
@@ -111,11 +112,23 @@
      :text-align "center"
      :align-self "center"}]
 
-   [:.header-add-timer
+   [:.header-template-chooser
     {:display "flex"
      :justify-content "center"
      :flex-grow 1
-     :text-align "center"}]
+     :text-align "center"
+     :margin-left (px 26)}]
+
+   [:.header-template-chooser>select
+    {:height (px 40)
+     :width "auto"
+     :color "black"
+     :border-left "1px solid #666"
+     :border-right "1px solid #666"
+     :cursor "pointer"
+     :text-align "center"
+     :font-weight "bold"
+     :font-size (em 1.2)}]
 
    [:.mat-button
     {:font-size (em 1.5)
@@ -133,8 +146,16 @@
       :cursor "pointer"}]]
 
    [:.header-end-spacer
-    {:flex-basis (px 100)
-     :flex-shrink 1}]]
+    {:display "flex"
+     :justify-content "flex-end"
+     :align-items "center"
+     :flex-basis (px 100)
+     :flex-shrink 1
+     :text-decoration "none"
+     :border "none"
+     :text-align "right"}
+    [:.material-icons
+     {:font-size (em 2)}]]]
 
   [:.ut-timer
    {:display "flex"
@@ -367,7 +388,18 @@
      :margin-bottom (px 10)}]]
   
   [:.flat-timer-extended-options-container
-   {:margin "auto auto"}]
+   {:margin "auto auto"}
+   [:h2
+    {:padding-left (px 0)
+     :margin-left (px 0)
+     :margin-top (px 10)
+     :margin-bottom (px 10)}]
+   [:h3
+    {:margin-top (px 10)
+     :margin-bottom (px 10)
+     :margin-left (px 5)}]
+   [:label
+    {:margin-left (px 7)}]]
 
   [:.alarm-sound-setting
    {:display "flex"
